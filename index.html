@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="/js/main.js" defer></script>
+  <link rel="stylesheet" href="/css/style.css?v=1">
+  <script src="/js/main.js?v=1" defer></script>
 </head>
 <body>
   <div class="page">
@@ -18,6 +18,16 @@
       <!-- home：焦点是涂鸦，留白是对的，别填。 -->
     </main>
 
+    <!-- 聊天气泡：随机打招呼 + 点开 Tally 私密留言 -->
+    <button class="note-bubble" type="button"
+            data-tally-open="rjq96p" data-tally-layout="modal" data-tally-width="500"
+            data-tally-hide-title="1" data-tally-overlay="1"
+            data-tally-emoji-text="👋" data-tally-emoji-animation="wave"
+            aria-label="leave me a note">
+      <img class="note-bubble-img" src="/assets/doodles/home-bubble.png" alt="">
+      <span class="note-bubble-text" aria-hidden="true"></span>
+    </button>
+
     <div class="doodles home-doodles" aria-hidden="true">
       <img class="doodle z" src="/assets/doodles/home-z.png" alt="">
       <img class="doodle z" src="/assets/doodles/home-z.png" alt="">
@@ -25,5 +35,7 @@
       <img class="doodle person" src="/assets/doodles/home-person.png" alt="a little person sleeping">
     </div>
   </div>
+
+  <script async src="https://tally.so/widgets/embed.js"></script>
 </body>
 </html>

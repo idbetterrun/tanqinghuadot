@@ -272,6 +272,38 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   50%      { transform: scale(1.02); }
 }
 
+/* ---- home：聊天气泡（随机打招呼，点开留言）---- */
+.note-bubble {
+  position: absolute;
+  bottom: 330px;
+  right: 330px;
+  width: 360px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform .25s ease;
+}
+.note-bubble:hover,
+.note-bubble:focus-visible { transform: rotate(-1.5deg) scale(1.03); }
+.note-bubble-img { display: block; width: 100%; height: auto; }
+.note-bubble-text {
+  position: absolute;
+  left: 10%;
+  top: 19%;
+  width: 58%;
+  height: 46%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.45rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
 /* ---- about：笔记本+笔、咖啡杯（飘热气） ---- */
 .about-doodles .notebook { top: 0;   right: 110px; width: 150px; }
 .about-doodles .coffee   { top: 130px; right: 10px;  width: 130px; }
@@ -290,7 +322,12 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 .works-doodles .cat  {
   bottom: 30px; right: 90px; width: 90px;
   animation: catWalk 6s ease-in-out infinite;
+  pointer-events: auto;          /* 可抓（涂鸦组默认 pointer-events:none） */
+  cursor: grab;
+  touch-action: none;            /* 触屏拖动不触发滚动 */
 }
+.works-doodles .cat.dragging { cursor: grabbing; }
+.works-doodles .cat.loose { z-index: 60; }   /* 拖动/蹦回时浮在最上层 */
 @keyframes catWalk {
   0%, 100% { transform: translateX(0)    translateY(0); }
   50%      { transform: translateX(20px) translateY(-2px); }
@@ -365,15 +402,18 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 /* 状态 / 日期 */
 .detail-meta { font-size: .95rem; opacity: .55; margin: 0 0 36px; }
 
-/* 截图画廊：横向排布，按统一高度并排，超出可横向滚动 */
+/* 截图画廊：横向排布，左右箭头切换，点击放大；隐藏滚动条 */
+.gallery { position: relative; margin: 36px 0; }
 .shots {
   display: flex;
   gap: 16px;
-  margin: 36px 0;
   overflow-x: auto;
-  padding-bottom: 10px;
+  scroll-behavior: smooth;
   scroll-snap-type: x proximity;
+  scrollbar-width: none;            /* firefox */
+  -ms-overflow-style: none;
 }
+.shots::-webkit-scrollbar { display: none; }   /* webkit：删掉那条丑滚动条 */
 .shots:not(:has(.shot)) { display: none; }
 .shot { margin: 0; flex: 0 0 auto; scroll-snap-align: start; }
 .shot img {
@@ -382,10 +422,59 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   display: block;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, .1);
+  cursor: zoom-in;
 }
 body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15); }
 
-.detail-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
+/* 左右切换箭头（仅图片溢出时由 JS 显示） */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, .12);
+  transition: background-color .2s ease, opacity .2s ease;
+}
+.gallery-arrow:hover { background: var(--accent); border-color: var(--accent); color: #1A1A1A; }
+.gallery-arrow.prev { left: 10px; }
+.gallery-arrow.next { right: 10px; }
+.gallery-arrow:disabled { opacity: 0; pointer-events: none; }
+.gallery-arrow[hidden] { display: none; }
+
+/* 点击放大灯箱 */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, .85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vmin;
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, .5);
+}
+
+.detail-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
 .detail-links a, .detail-links span {
   font-size: .95rem; opacity: .6; text-decoration: none;
   border-bottom: 1px solid currentColor; padding-bottom: 1px;
@@ -408,6 +497,31 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
   color: #1A1A1A;
 }
 .detail-links a.detail-download:active { transform: translateY(1px); }
+
+/* notiee：app store / website 按钮（coming soon 占位，不可点） */
+.store-buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+.store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: default;
+  user-select: none;
+}
+.store-btn svg { width: 20px; height: 20px; flex: none; }
+.store-btn.filled { background: #FFFFFF; color: #1A1A1A; }
+.store-btn.filled svg { fill: #1A1A1A; }
+.store-btn.outline {
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+}
+.store-btn.outline .icon-globe { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.store-btn .soon { font-size: .72rem; opacity: .5; }
 
 /* ============================================================
    Contact
@@ -486,6 +600,12 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
     position: relative;
     top: auto; bottom: auto; right: auto;
     width: 240px; height: 240px;
+    margin: 24px 0 0 auto;
+  }
+  .note-bubble {
+    position: relative;
+    bottom: auto; right: auto;
+    width: 230px;
     margin: 24px 0 0 auto;
   }
   .home-doodles { width: 260px; height: 260px; }
