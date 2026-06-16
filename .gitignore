@@ -4,3 +4,6 @@
 
 # stray conversion artifacts (junk files literally named "png", ~18MB)
 assets/works/*/png
+
+# dependencies
+node_modules/
