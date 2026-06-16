@@ -1,0 +1,512 @@
+/* ============================================================
+   tanqinghua. — global stylesheet
+   手绘 + 极简。手写体只贴 网站名/导航/app 名，正文 Inter。
+   ============================================================ */
+
+/* ---------- Fonts ---------- */
+@font-face {
+  font-family: "tanqinghua";
+  src: url("/assets/fonts/tanqinghuafont.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --font-hand: "tanqinghua", system-ui, sans-serif;          /* 网站名 + 标题 */
+  --font-body: "Inter", "Work Sans", system-ui, sans-serif;  /* 正文 / 其余一切 */
+
+  /* 基础主题（home / about / works列表 / contact） */
+  --bg: #FFFFFF;
+  --ink: #1A1A1A;
+  --accent: #FFC83D;
+  --transition: 0.6s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ---------- 代表色主题（data-theme） ---------- */
+body[data-theme="tomanotes"]  { --bg: #EAE7E1; --ink: #1A1A1A; }
+body[data-theme="notiee"]     { --bg: #09C576; --ink: #0A2A1B; }
+body[data-theme="artista"]    { --bg: #F5DFF3; --ink: #2A1A28; }
+body[data-theme="dreamland"]  { --bg: #121212; --ink: #F5F5F5; } /* 暗色，文字翻白 */
+
+/* ---------- Reset-ish ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  transition: background-color var(--transition), color var(--transition);
+  animation: pageIn .4s ease both;            /* 进场淡入 */
+  min-height: 100vh;
+}
+
+@keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+
+a { color: inherit; }
+
+/* ============================================================
+   布局系统（隐形网格，每页通用）
+   左列 ~180px，离左 48px；内容区从 ~260px 起，max-width 560px。
+   间距用 8 的倍数；body 居中 max-width 1200。
+   ============================================================ */
+.page {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 48px 84px;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 80px;
+}
+
+/* 注入槽本身不占布局，让 site-name / nav 直接成为 .page 的网格项 */
+#nav-placeholder { display: contents; }
+
+/* 页脚版权：每页底部左下，安静不抢戏（JS 注入） */
+.site-footer {
+  position: absolute;
+  bottom: 28px;
+  left: 48px;
+  font-family: var(--font-body);
+  font-size: .8rem;
+  opacity: .4;
+}
+
+/* 网站名：手写体，永远链回首页 */
+.site-name {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-hand);
+  font-size: 2.75rem;
+  text-decoration: none;
+  line-height: 1.1;
+  align-self: start;
+}
+
+/* ---------- 左列导航 ---------- */
+.nav {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.nav a {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  text-decoration: none;
+  width: max-content;
+  opacity: .75;
+  transition: opacity .25s ease;
+}
+.nav a:hover,
+.nav a.active { opacity: 1; }
+
+/* 中/En 占位：Inter，本期不接逻辑 */
+.nav .lang-toggle {
+  font-family: var(--font-body);
+  font-size: .9rem;
+  opacity: .5;
+  margin-top: 24px;
+  cursor: default;
+}
+
+/* 黄色 active 波浪线 */
+.active-mark { width: 60px; height: 12px; display: none; margin-top: 2px; }
+.nav a.active .active-mark { display: block; }
+
+/* ---------- 内容区 ---------- */
+.content {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  max-width: 560px;
+  padding-top: 8px;
+}
+
+/* 有右上涂鸦的页面：内容从涂鸦下沿水平处开始，重心下移、不贴顶 */
+.page:has(.doodles) .content { padding-top: 300px; }
+
+/* about 正文排版 */
+.about-copy {
+  font-size: 1.2rem;
+  line-height: 1.85;
+  max-width: 64ch;
+}
+.about-copy p { margin: 0 0 1em; }
+
+/* hidden 属性优先级兜底（resume li 设了 display:flex 会盖掉 UA 的 display:none） */
+[hidden] { display: none !important; }
+
+/* ---------- about：education / internship ---------- */
+.resume { margin-top: 64px; }
+.resume-head {
+  font-family: var(--font-hand);
+  font-size: 1.7rem;
+  margin: 0 0 18px;
+}
+.resume-list { list-style: none; padding: 0; margin: 0 0 44px; }
+.resume-list li { display: flex; gap: 20px; margin-bottom: 22px; }
+.resume-year {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  min-width: 44px;
+  opacity: .8;
+}
+.resume-body { display: flex; flex-direction: column; gap: 3px; }
+.resume-title { font-size: 1.05rem; }
+.resume-org { font-size: .95rem; opacity: .55; }
+
+/* 解锁 hnip 时轻轻浮现 */
+.edu-hidden:not([hidden]) { animation: fadeUp .45s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 笔（notebook 涂鸦）可点：默认整组涂鸦 pointer-events:none，这里单独打开 */
+.about-doodles .notebook {
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+.about-doodles .notebook:hover,
+.about-doodles .notebook:focus-visible { transform: rotate(-2deg) scale(1.03); }
+
+/* ---------- 点笔弹窗 ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .25); }
+.modal-box {
+  position: relative;
+  background: var(--bg);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, .12);
+  animation: popIn .25s ease both;
+}
+.modal-q {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin: 0 0 24px;
+}
+.modal-actions { display: flex; flex-direction: column; gap: 12px; }
+.modal-btn {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 12px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color .2s ease, transform .1s ease;
+}
+.modal-btn:hover { background: var(--accent); border-color: var(--accent); }
+.modal-btn:active { transform: translateY(1px); }
+@keyframes popIn {
+  from { opacity: 0; transform: scale(.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ============================================================
+   涂鸦 & 动画
+   只用 transform / opacity；循环 3–4s；尊重 reduced-motion。
+   涂鸦为透明 PNG，直接叠放。
+   ============================================================ */
+.doodles {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+}
+.doodle { position: absolute; }
+
+/* dreamland 暗底：黑线涂鸦翻白 */
+body[data-theme="dreamland"] .doodle { filter: invert(1); }
+
+/* ---- home：睡觉小人（主角，放大下移）+ 飘 z ---- */
+.home-doodles {
+  width: 620px; height: 560px;
+  top: auto; bottom: 24px; right: 40px;
+}
+.home-doodles .person {
+  bottom: 0; right: 0; width: 460px;
+  transform-origin: bottom center;
+  animation: breathe 4s ease-in-out infinite;
+}
+/* z 锚在小人头顶，自下往上、向右斜着飘 */
+.home-doodles .z {
+  width: 34px;
+  bottom: 205px; right: 150px;
+  animation: floatZ 3.5s ease-out infinite;
+}
+.home-doodles .z:nth-of-type(2) { bottom: 235px; right: 120px; width: 42px; animation-delay: 1.1s; }
+.home-doodles .z:nth-of-type(3) { bottom: 270px; right: 88px; width: 50px; animation-delay: 2.2s; }
+
+@keyframes floatZ {
+  0%   { transform: translateY(0)     scale(1);   opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(-40px) scale(1.3); opacity: 0; }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.02); }
+}
+
+/* ---- about：笔记本+笔、咖啡杯（飘热气） ---- */
+.about-doodles .notebook { top: 0;   right: 110px; width: 150px; }
+.about-doodles .coffee   { top: 130px; right: 10px;  width: 130px; }
+.about-doodles .steam    {
+  top: 90px; right: 60px; width: 40px;
+  animation: steam 4s ease-in-out infinite;
+}
+@keyframes steam {
+  0%   { transform: translateY(0)    translateX(0); opacity: 0; }
+  30%  { opacity: .7; }
+  100% { transform: translateY(-30px) translateX(4px); opacity: 0; }
+}
+
+/* ---- works：树+栅栏+猫（猫会走） ---- */
+.works-doodles .tree { top: 0;   right: 0;  width: 240px; }
+.works-doodles .cat  {
+  bottom: 30px; right: 90px; width: 90px;
+  animation: catWalk 6s ease-in-out infinite;
+}
+@keyframes catWalk {
+  0%, 100% { transform: translateX(0)    translateY(0); }
+  50%      { transform: translateX(20px) translateY(-2px); }
+}
+
+/* ---- contact：两个杯子碰杯（单张 PNG，做整体轻呼吸） ---- */
+.contact-doodles .cups {
+  top: 40px; right: 40px; width: 200px;
+  transform-origin: bottom center;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* ============================================================
+   Works 列表（2×2 网格）
+   ============================================================ */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 56px;
+  margin-top: 8px;
+}
+.app-card { display: block; }
+.app-title {
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  text-decoration: none;
+  display: inline-block;
+}
+.app-blurb {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  margin-top: 8px;
+  opacity: .35;                          /* 默认半透明，hover 浮现 */
+  transition: opacity .3s ease;
+  max-width: 22ch;
+}
+.app-card:hover .app-blurb,
+.app-card:focus-within .app-blurb { opacity: .8; }
+
+/* ============================================================
+   App 详情页
+   ============================================================ */
+.back-link {
+  font-family: var(--font-body);
+  font-size: .95rem;
+  text-decoration: none;
+  opacity: .7;
+  display: inline-block;
+  margin-bottom: 40px;
+}
+.back-link:hover { opacity: 1; }
+
+.detail-title {
+  font-family: var(--font-hand);
+  font-size: 3.5rem;
+  margin: 0 0 8px;
+  line-height: 1.05;
+}
+.detail-tagline {
+  font-size: 1.2rem;
+  opacity: .8;
+  margin: 0 0 40px;
+}
+.detail-body { font-size: 1.1rem; line-height: 1.7; max-width: 60ch; }
+.detail-body p { margin: 0 0 1.2em; }
+
+/* 标题行：app 图标 + 名（图标缺失时 onerror 自删，标题不受影响） */
+.detail-head { display: flex; align-items: center; gap: 18px; margin-bottom: 8px; }
+.detail-head .detail-title { margin: 0; }
+.app-icon { width: 72px; height: 72px; border-radius: 16px; flex: none; }
+
+/* 状态 / 日期 */
+.detail-meta { font-size: .95rem; opacity: .55; margin: 0 0 36px; }
+
+/* 截图画廊：横向排布，按统一高度并排，超出可横向滚动 */
+.shots {
+  display: flex;
+  gap: 16px;
+  margin: 36px 0;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x proximity;
+}
+.shots:not(:has(.shot)) { display: none; }
+.shot { margin: 0; flex: 0 0 auto; scroll-snap-align: start; }
+.shot img {
+  height: 340px;
+  width: auto;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, .1);
+}
+body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15); }
+
+.detail-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
+.detail-links a, .detail-links span {
+  font-size: .95rem; opacity: .6; text-decoration: none;
+  border-bottom: 1px solid currentColor; padding-bottom: 1px;
+}
+.detail-links a:hover { opacity: 1; }
+
+/* 下载：做成实心小按钮，更显眼 */
+.detail-links a.detail-download {
+  opacity: 1;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  transition: background-color .2s ease, color .2s ease, transform .1s ease;
+}
+.detail-links a.detail-download:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1A1A1A;
+}
+.detail-links a.detail-download:active { transform: translateY(1px); }
+
+/* ============================================================
+   Contact
+   ============================================================ */
+.contact-title {
+  font-family: var(--font-hand);
+  font-size: 3rem;
+  margin: 0 0 14px;
+  line-height: 1.05;
+}
+.contact-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: .7;
+  max-width: 40ch;
+  margin: 0 0 36px;
+}
+
+/* 邮箱：大号，手绘黄色下划线常驻 */
+.contact-email {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  text-decoration: none;
+  margin-bottom: 44px;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 4px;
+  padding-bottom: 3px;
+  transition: background-size .25s ease;
+}
+.contact-email:hover { background-size: 100% 8px; }
+
+/* 社交：手绘药丸标签，整行铺开，hover 填黄 */
+.social-row { display: flex; flex-wrap: wrap; gap: 14px; }
+.social-chip {
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  text-decoration: none;
+  padding: 8px 22px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  transition: background-color .2s ease, color .2s ease, transform .1s ease;
+}
+.social-chip:hover,
+.social-chip:focus-visible {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1A1A1A;
+}
+.social-chip:active { transform: translateY(1px); }
+
+/* ============================================================
+   响应式（桌面优先；窄屏单列、导航转顶部、涂鸦缩小）
+   ============================================================ */
+@media (max-width: 768px) {
+  .page {
+    display: block;
+    padding: 24px 24px 72px;
+  }
+  .site-footer { left: 24px; bottom: 20px; }
+  .shot img { height: 240px; }
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+    align-items: center;
+  }
+  .nav .lang-toggle { margin-top: 0; }
+  .content { max-width: 100%; margin-top: 24px; }
+  /* 窄屏取消桌面端的大上偏移，涂鸦在内容上方独立成块 */
+  .page:has(.doodles) .content { padding-top: 0; }
+  .doodles {
+    position: relative;
+    top: auto; bottom: auto; right: auto;
+    width: 240px; height: 240px;
+    margin: 24px 0 0 auto;
+  }
+  .home-doodles { width: 260px; height: 260px; }
+  .home-doodles .person { width: 220px; }
+  .home-doodles .z { bottom: 95px; right: 85px; width: 20px; }
+  .home-doodles .z:nth-of-type(2) { bottom: 115px; right: 65px; width: 24px; }
+  .home-doodles .z:nth-of-type(3) { bottom: 140px; right: 42px; width: 28px; }
+  .works-grid { grid-template-columns: 1fr; gap: 32px; }
+  .detail-title { font-size: 2.4rem; }
+}
+
+/* ============================================================
+   无障碍 / reduced-motion
+   ============================================================ */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  .z, .steam, .cat, .person, .cups,
+  .cup-left, .cup-right {
+    animation: none !important;
+    transition: none !important;
+  }
+}

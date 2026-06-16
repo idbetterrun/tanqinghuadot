@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# stray conversion artifacts (junk files literally named "png", ~18MB)
+assets/works/*/png

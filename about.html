@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>about — tanqinghua.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/main.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <div id="nav-placeholder"></div>
+
+    <main class="content">
+      <div class="about-copy">
+        <p>just a regular person</p>
+        <p>likes building stuff, makes little apps here and there</p>
+        <p>loves music and movies — can only tell you if it's good or not, writing's too rough for actual reviews</p>
+        <p>loves to travel, just haven't been many places yet</p>
+        <p>studying english, still don't think i'm any good at it</p>
+        <p>some days i feel unstoppable, some days everything's falling apart</p>
+        <p>some nights i dream the most beautiful things, some days it all feels over</p>
+        <p>saw other people writing little things on their own sites, so i figured i'd try too</p>
+        <p>honestly should've grabbed idbetter.run back when i had the chance</p>
+        <p>thanks for making it this far :)</p>
+      </div>
+
+      <section class="resume">
+        <h2 class="resume-head">education</h2>
+        <ul class="resume-list">
+          <li>
+            <span class="resume-year">27</span>
+            <span class="resume-body">
+              <span class="resume-title">business english</span>
+              <span class="resume-org">xiangnan university</span>
+            </span>
+          </li>
+          <li class="edu-hidden" hidden>
+            <span class="resume-year">25</span>
+            <span class="resume-body">
+              <span class="resume-title">business English</span>
+              <span class="resume-org">hunan industry polytechnic</span>
+            </span>
+          </li>
+        </ul>
+
+        <h2 class="resume-head">internship</h2>
+        <ul class="resume-list">
+          <li>
+            <span class="resume-year">25</span>
+            <span class="resume-body">
+              <span class="resume-title">admin assistant (office paperwork, basically)</span>
+              <span class="resume-org">changsha zhongbiaoyi information technology co., ltd.</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <div class="doodles about-doodles">
+      <img class="doodle notebook" src="/assets/doodles/about-notebook.png"
+           alt="" data-degree-trigger role="button" tabindex="0"
+           aria-label="click the pen">
+      <img class="doodle steam" src="/assets/doodles/about-steam.png" alt="" aria-hidden="true">
+      <img class="doodle coffee" src="/assets/doodles/about-coffee.png" alt="" aria-hidden="true">
+    </div>
+
+    <!-- 点笔弹窗：选 “nope, never” 才解锁 hnip 那段学历 -->
+    <div id="degree-modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="degree-q">
+      <div class="modal-backdrop" data-dismiss></div>
+      <div class="modal-box">
+        <p id="degree-q" class="modal-q">you're not gonna judge me for my degree, right?</p>
+        <div class="modal-actions">
+          <button type="button" class="modal-btn" data-reveal>nope, never</button>
+          <button type="button" class="modal-btn" data-dismiss>...honestly, no clue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
