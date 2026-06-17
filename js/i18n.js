@@ -1,7 +1,13 @@
 /* tanqinghua. — 双语（中 / En）引擎
    data-i18n 替换文本；data-i18n-attr="attr:key;attr:key" 替换属性。
    英文原文采集自 HTML（单一来源），字典只写中文。
-   跟随浏览器语言；手动切换记 localStorage['lang']。 */
+   跟随浏览器语言；手动切换记 localStorage['lang']。
+
+   两条约定（维护者注意）：
+   1) render() 用 textContent 改写，故 data-i18n 元素必须只含文本、无子元素
+      （要带图标/SVG 时，把 data-i18n 打在内层纯文本 span 上，别打在外层）。
+   2) 调用顺序：先 init()（定语言）→ 内容就位 → apply()（先采集英文再渲染）→
+      之后才可 setLang()；apply 之前 setLang 会因 enCache 为空而无文可还原。 */
 (function () {
   "use strict";
 
