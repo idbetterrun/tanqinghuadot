@@ -44,6 +44,15 @@ body {
 
 a { color: inherit; }
 
+/* 中文模式：正文与几个原本手写体的标题回落到中文系统字体 */
+html[lang="zh"] body,
+html[lang="zh"] .contact-title,
+html[lang="zh"] .modal-q,
+html[lang="zh"] .note-bubble-text,
+html[lang="zh"] .resume-head {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+}
+
 /* ============================================================
    布局系统（隐形网格，每页通用）
    左列 ~180px，离左 48px；内容区从 ~260px 起，max-width 560px。
@@ -106,14 +115,28 @@ a { color: inherit; }
 .nav a:hover,
 .nav a.active { opacity: 1; }
 
-/* 中/En 占位：Inter，本期不接逻辑 */
+/* 中/En 切换开关 */
 .nav .lang-toggle {
   font-family: var(--font-body);
   font-size: .9rem;
-  opacity: .5;
   margin-top: 24px;
-  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+.lang-btn {
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  opacity: .45;
+  transition: opacity .2s ease;
+}
+.lang-btn.active { opacity: 1; font-weight: 500; }
+.lang-btn:hover { opacity: .8; }
+.lang-sep { opacity: .4; }
 
 /* 黄色 active 波浪线 */
 .active-mark { width: 60px; height: 12px; display: none; margin-top: 2px; }
