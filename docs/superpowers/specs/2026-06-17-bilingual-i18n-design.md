@@ -93,16 +93,16 @@ bindToggle(r) 给 r 内 .lang-btn 绑 click → setLang。
 
 ### 引入顺序
 
-7 个页面 head 在 `main.js` 之前加：
+8 个页面 head 在 `main.js` 之前加：
 ```html
 <script src="/js/i18n.js?v=1" defer></script>
 ```
 `defer` 保证执行顺序。统一把所有 `?v=1` 提到 `?v=2`（i18n.js / main.js / style.css / nav.html）以破缓存。
 
-## 6. 改动文件清单（11）
+## 6. 改动文件清单（12）
 
 `js/i18n.js`(新) · `js/main.js` · `partials/nav.html` · `css/style.css` ·
-`index.html` · `about.html` · `works.html` ·
+`index.html` · `about.html` · `works.html` · `contact.html` ·
 `works/notiee.html` · `works/dreamland.html` · `works/artista.html` · `works/tomanotes.html`
 
 ## 7. 不翻译
