@@ -244,19 +244,9 @@
   function setupNoteBubble() {
     var el = document.querySelector(".note-bubble-text");
     if (!el) return;
-    var greetings = [
-      "hi there :)",
-      "oh, hey!",
-      "you made it",
-      "psst — leave me a note?",
-      "knock knock",
-      "say something?",
-      "what's on your mind?",
-      "drop me a line",
-      "hello hello",
-      "tell me something"
-    ];
-    el.textContent = greetings[Math.floor(Math.random() * greetings.length)];
+    var g = window.I18N ? I18N.greetings() : [];
+    if (!g.length) return;
+    el.textContent = g[Math.floor(Math.random() * g.length)];
   }
 
   /* 每页底部注入版权页脚 */
@@ -265,6 +255,7 @@
     if (!page || page.querySelector(".site-footer")) return;
     var f = document.createElement("footer");
     f.className = "site-footer";
+    f.setAttribute("data-i18n", "footer");
     f.textContent = "Copyright © 2026 tanqinghua. All Rights Reserved.";
     page.appendChild(f);
   }
@@ -273,11 +264,12 @@
     var slot = document.getElementById("nav-placeholder");
     if (!slot) { markActive(); return; }
 
-    fetch("/partials/nav.html?v=1")
+    fetch("/partials/nav.html?v=2")
       .then(function (res) { return res.text(); })
       .then(function (html) {
         slot.innerHTML = html;
         markActive();
+        if (window.I18N) I18N.bindToggle(slot);
       })
       .catch(function (err) {
         console.error("nav inject failed:", err);
@@ -285,12 +277,17 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    if (window.I18N) I18N.init();
     injectNav();
     bindWorksHover();
     bindDegreeEasterEgg();
     addFooter();
     setupCatDrag();
     setupNoteBubble();
+    if (window.I18N) {
+      I18N.apply(document);
+      document.addEventListener("langchange", setupNoteBubble);
+    }
   });
 
   // 图片（含失败）全部 settle 后：清理空画廊，再装箭头/灯箱
