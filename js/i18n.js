@@ -12,6 +12,12 @@
   "use strict";
 
   var ZH = {
+    /* nav */
+    "siteName": "谭晴桦",
+    "nav.about": "关于",
+    "nav.works": "作品",
+    "nav.contact": "联系",
+
     /* footer */
     "footer": "© 2026 tanqinghua. 保留所有权利。",
 

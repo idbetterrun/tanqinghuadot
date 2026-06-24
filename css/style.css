@@ -10,6 +10,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "XiangJiao";
+  src: url("/assets/fonts/XiangJiaoTongQuHuiBenLingGanCuCuTi-2.ttf") format("truetype");
+  font-display: swap;
+}
+
 :root {
   --font-hand: "tanqinghua", system-ui, sans-serif;          /* 网站名 + 标题 */
   --font-body: "Inter", "Work Sans", system-ui, sans-serif;  /* 正文 / 其余一切 */
@@ -46,11 +52,21 @@ a { color: inherit; }
 
 /* 中文模式：正文与几个原本手写体的标题回落到中文系统字体 */
 html[lang="zh"] body,
-html[lang="zh"] .contact-title,
 html[lang="zh"] .modal-q,
 html[lang="zh"] .note-bubble-text,
 html[lang="zh"] .resume-head {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+}
+
+/* 中文模式：「打个招呼」用香蕉桶趣字体 */
+html[lang="zh"] .contact-title {
+  font-family: "XiangJiao", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+/* 中文模式：导航及 site-name 使用手写中文字体 */
+html[lang="zh"] .nav a > span,
+html[lang="zh"] .site-name > span {
+  font-family: "XiangJiao", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
 }
 
 /* ============================================================
@@ -372,16 +388,19 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   gap: 48px 56px;
   margin-top: 8px;
 }
-.app-card { display: block; }
+.app-card {
+  display: block;
+  text-decoration: none;                  /* 去掉链接下划线 */
+}
 .app-title {
   font-family: var(--font-hand);
   font-size: 2rem;
-  text-decoration: none;
   display: inline-block;
 }
 .app-blurb {
   font-family: var(--font-body);
   font-size: 1rem;
+  display: block;                         /* 另起一行 */
   margin-top: 8px;
   opacity: .35;                          /* 默认半透明，hover 浮现 */
   transition: opacity .3s ease;
@@ -389,6 +408,45 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 }
 .app-card:hover .app-blurb,
 .app-card:focus-within .app-blurb { opacity: .8; }
+
+/* hover：当前卡片持续保持轻微放大，其他卡片缩小+变淡 */
+.app-card {
+  transition: opacity .3s ease, transform .3s ease;
+}
+.app-card .app-title,
+.app-card .app-blurb {
+  transition: transform .3s ease;
+}
+.works-grid:hover .app-card:not(:hover):not(:focus-within) {
+  opacity: .3;
+  transform: scale(.93);
+}
+.app-card:hover,
+.app-card:focus-within { opacity: 1; transform: scale(1); }
+.app-card:hover .app-title,
+.app-card:focus-within .app-title { transform: scale(1.02); }
+.app-card:hover .app-blurb,
+.app-card:focus-within .app-blurb { transform: scale(1.03); }
+
+/* 离开时弹跳回缩 */
+@keyframes bounceOutTitle {
+  0%   { transform: scale(1.02); }
+  40%  { transform: scale(1.04); }
+  70%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+@keyframes bounceOutBlurb {
+  0%   { transform: scale(1.03); }
+  40%  { transform: scale(1.06); }
+  70%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+.app-card:not(:hover):not(:focus-within) .app-title {
+  transform: scale(1);
+}
+.app-card:not(:hover):not(:focus-within) .app-blurb {
+  transform: scale(1);
+}
 
 /* ============================================================
    App 详情页
@@ -565,19 +623,39 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 
 /* 邮箱：大号，手绘黄色下划线常驻 */
 .contact-email {
+  position: relative;
   display: inline-block;
-  font-family: var(--font-body);
+  font-family: var(--font-hand);
   font-size: 1.5rem;
   text-decoration: none;
   margin-bottom: 44px;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 4px;
-  padding-bottom: 3px;
-  transition: background-size .25s ease;
+  padding: 0 4px;
 }
-.contact-email:hover { background-size: 100% 8px; }
+.contact-email .highlight-line {
+  position: absolute;
+  left: -2px;
+  bottom: 0;
+  width: calc(100% + 4px);
+  height: 32px;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity .3s ease;
+  opacity: .85;
+  overflow: visible;
+}
+.contact-email > span {
+  position: relative;
+  z-index: 1;
+}
+.contact-email .highlight-line path {
+  transition: opacity .3s ease;
+}
+.contact-email:hover .highlight-line path {
+  opacity: .9;
+}
+.contact-email:hover .highlight-line {
+  opacity: .9;
+}
 
 /* 社交：手绘药丸标签，整行铺开，hover 填黄 */
 .social-row { display: flex; flex-wrap: wrap; gap: 14px; }
