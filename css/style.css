@@ -372,16 +372,19 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   gap: 48px 56px;
   margin-top: 8px;
 }
-.app-card { display: block; }
+.app-card {
+  display: block;
+  text-decoration: none;                  /* 去掉链接下划线 */
+}
 .app-title {
   font-family: var(--font-hand);
   font-size: 2rem;
-  text-decoration: none;
   display: inline-block;
 }
 .app-blurb {
   font-family: var(--font-body);
   font-size: 1rem;
+  display: block;                         /* 另起一行 */
   margin-top: 8px;
   opacity: .35;                          /* 默认半透明，hover 浮现 */
   transition: opacity .3s ease;
@@ -389,6 +392,45 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 }
 .app-card:hover .app-blurb,
 .app-card:focus-within .app-blurb { opacity: .8; }
+
+/* hover：当前卡片持续保持轻微放大，其他卡片缩小+变淡 */
+.app-card {
+  transition: opacity .3s ease, transform .3s ease;
+}
+.app-card .app-title,
+.app-card .app-blurb {
+  transition: transform .3s ease;
+}
+.works-grid:hover .app-card:not(:hover):not(:focus-within) {
+  opacity: .3;
+  transform: scale(.93);
+}
+.app-card:hover,
+.app-card:focus-within { opacity: 1; transform: scale(1); }
+.app-card:hover .app-title,
+.app-card:focus-within .app-title { transform: scale(1.02); }
+.app-card:hover .app-blurb,
+.app-card:focus-within .app-blurb { transform: scale(1.03); }
+
+/* 离开时弹跳回缩 */
+@keyframes bounceOutTitle {
+  0%   { transform: scale(1.02); }
+  40%  { transform: scale(1.04); }
+  70%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+@keyframes bounceOutBlurb {
+  0%   { transform: scale(1.03); }
+  40%  { transform: scale(1.06); }
+  70%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+.app-card:not(:hover):not(:focus-within) .app-title {
+  transform: scale(1);
+}
+.app-card:not(:hover):not(:focus-within) .app-blurb {
+  transform: scale(1);
+}
 
 /* ============================================================
    App 详情页
