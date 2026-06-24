@@ -10,6 +10,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "XiangJiao";
+  src: url("/assets/fonts/XiangJiaoTongQuHuiBenLingGanCuCuTi-2.ttf") format("truetype");
+  font-display: swap;
+}
+
 :root {
   --font-hand: "tanqinghua", system-ui, sans-serif;          /* 网站名 + 标题 */
   --font-body: "Inter", "Work Sans", system-ui, sans-serif;  /* 正文 / 其余一切 */
@@ -51,6 +57,12 @@ html[lang="zh"] .modal-q,
 html[lang="zh"] .note-bubble-text,
 html[lang="zh"] .resume-head {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+}
+
+/* 中文模式：导航及 site-name 使用手写中文字体 */
+html[lang="zh"] .nav a > span,
+html[lang="zh"] .site-name > span {
+  font-family: "XiangJiao", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
 }
 
 /* ============================================================

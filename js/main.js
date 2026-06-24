@@ -269,7 +269,10 @@
       .then(function (html) {
         slot.innerHTML = html;
         markActive();
-        if (window.I18N) I18N.bindToggle(slot);
+        if (window.I18N) {
+          I18N.bindToggle(slot);
+          I18N.apply(slot);                   // 只翻译导航区域
+        }
       })
       .catch(function (err) {
         console.error("nav inject failed:", err);
