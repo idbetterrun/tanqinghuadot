@@ -52,11 +52,15 @@ a { color: inherit; }
 
 /* 中文模式：正文与几个原本手写体的标题回落到中文系统字体 */
 html[lang="zh"] body,
-html[lang="zh"] .contact-title,
 html[lang="zh"] .modal-q,
 html[lang="zh"] .note-bubble-text,
 html[lang="zh"] .resume-head {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+}
+
+/* 中文模式：「打个招呼」用香蕉桶趣字体 */
+html[lang="zh"] .contact-title {
+  font-family: "XiangJiao", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
 }
 
 /* 中文模式：导航及 site-name 使用手写中文字体 */
@@ -619,19 +623,39 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 
 /* 邮箱：大号，手绘黄色下划线常驻 */
 .contact-email {
+  position: relative;
   display: inline-block;
-  font-family: var(--font-body);
+  font-family: var(--font-hand);
   font-size: 1.5rem;
   text-decoration: none;
   margin-bottom: 44px;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 4px;
-  padding-bottom: 3px;
-  transition: background-size .25s ease;
+  padding: 0 4px;
 }
-.contact-email:hover { background-size: 100% 8px; }
+.contact-email .highlight-line {
+  position: absolute;
+  left: -2px;
+  bottom: 0;
+  width: calc(100% + 4px);
+  height: 32px;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity .3s ease;
+  opacity: .85;
+  overflow: visible;
+}
+.contact-email > span {
+  position: relative;
+  z-index: 1;
+}
+.contact-email .highlight-line path {
+  transition: opacity .3s ease;
+}
+.contact-email:hover .highlight-line path {
+  opacity: .9;
+}
+.contact-email:hover .highlight-line {
+  opacity: .9;
+}
 
 /* 社交：手绘药丸标签，整行铺开，hover 填黄 */
 .social-row { display: flex; flex-wrap: wrap; gap: 14px; }
