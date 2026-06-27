@@ -727,3 +727,46 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
     transition: none !important;
   }
 }
+
+/* ============================================================
+   Talks 详情
+   ============================================================ */
+.talks-date { display: flex; align-items: center; gap: 12px; margin: 0 0 6px; }
+.talks-cal { width: 46px; height: auto; }
+.talks-date-text {
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  opacity: .85;
+}
+.talks-body { margin-top: 28px; }
+.talks-body p { margin: 0 0 1.2em; }
+.talks-body h2 { font-family: var(--font-hand); font-size: 1.6rem; margin: 1.6em 0 .5em; }
+.talks-body h3 { font-family: var(--font-hand); font-size: 1.3rem; margin: 1.4em 0 .4em; }
+.talks-body ul { padding-left: 1.2em; }
+.talks-body li { margin: .3em 0; }
+.talks-body blockquote {
+  margin: 1.2em 0;
+  padding: 4px 0 4px 16px;
+  border-left: 3px solid var(--accent);
+  opacity: .8;
+}
+.talks-body a { text-decoration: underline; text-underline-offset: 2px; }
+.talks-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .9em;
+  background: rgba(0,0,0,.06);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+body[data-theme="dreamland"] .talks-body code { background: rgba(255,255,255,.12); }
+
+/* 详情涂鸦:袋子(摇摆) + 三颗星(逐帧转,Task 8/9) */
+.talks-detail-doodles .bag {
+  top: 0; right: 0; width: 180px;
+  transform-origin: top center;
+  animation: bagSway 5s ease-in-out infinite;
+}
+@keyframes bagSway {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50%      { transform: rotate(2.5deg); }
+}

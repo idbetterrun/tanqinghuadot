@@ -98,7 +98,50 @@
   /* ---------- 详情页(Task 4 填充) ---------- */
   function setupLike(slug, root) { /* Task 7 */ }
   function setupStars(scope) { /* Task 9 */ }
-  function initDetail(root) { /* Task 4 */ }
+  function renderHead(post, root) {
+    var l = lang();
+    var titleObj = post.title || {};
+    var dEl = root.querySelector("[data-talks-date]");
+    var tEl = root.querySelector("[data-talks-title]");
+    if (dEl) dEl.textContent = fmtDate(post.date, l);
+    if (tEl) tEl.textContent = titleObj[l] || titleObj.en || "";
+    document.title = (titleObj[l] || titleObj.en || "talks") + " — tanqinghua.";
+  }
+
+  function loadBody(post, root) {
+    var bodyEl = root.querySelector("[data-talks-body]");
+    if (!bodyEl) return;
+    fetch("/talks/" + encodeURIComponent(post.slug) + "." + lang() + ".md")
+      .then(function (r) { return r.ok ? r.text() : Promise.reject(new Error("md " + r.status)); })
+      .then(function (md) {
+        bodyEl.innerHTML = window.marked ? window.marked.parse(md) : esc(md);
+      })
+      .catch(function (err) { console.error("[talks] failed to load body:", err); bodyEl.textContent = t("empty"); });
+  }
+
+  function initDetail(root) {
+    var slug = new URLSearchParams(location.search).get("p");
+    fetchPosts().then(function (posts) {
+      var post = posts.filter(function (p) { return p.slug === slug; })[0];
+      if (!post) {
+        var tEl = root.querySelector("[data-talks-title]");
+        if (tEl) tEl.textContent = t("empty");
+        return;
+      }
+      renderHead(post, root);
+      loadBody(post, root);
+      setupLike(post.slug, root);
+      setupStars(document);
+      document.addEventListener("langchange", function () {
+        renderHead(post, root);
+        loadBody(post, root);
+      });
+    }).catch(function (err) {
+      console.error("[talks] failed to load post:", err);
+      var tEl = root.querySelector("[data-talks-title]");
+      if (tEl) tEl.textContent = t("empty");
+    });
+  }
 
   document.addEventListener("DOMContentLoaded", function () {
     var listEl = document.querySelector("[data-talks-list]");
