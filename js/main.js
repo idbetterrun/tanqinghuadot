@@ -1,6 +1,6 @@
 /* tanqinghua. — shared behaviour
    1) 注入共享左列导航
-   2) 按当前文件名判 active（works 子页强制高亮 works）
+   2) 按当前文件名判 active（works / talks 子页分别强制高亮对应项）
    3) works 列表 hover → data-theme 预览代表色
    必须经本地服务器跑（fetch + file:// 会被 CORS 挡）。 */
 
@@ -11,11 +11,14 @@
     var path = location.pathname;
     var file = path.split("/").pop() || "index.html";
     var inWorks = path.indexOf("/works/") !== -1;   // app 详情页
+    var inTalks = path.indexOf("/talks/") !== -1;   // talks 详情页
 
     document.querySelectorAll(".nav a").forEach(function (a) {
       var href = a.getAttribute("href") || "";
       var hrefFile = href.split("/").pop();
-      if (hrefFile === file || (inWorks && hrefFile === "works.html")) {
+      if (hrefFile === file
+          || (inWorks && hrefFile === "works.html")
+          || (inTalks && hrefFile === "talks.html")) {
         a.classList.add("active");
       }
     });
