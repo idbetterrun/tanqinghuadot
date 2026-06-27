@@ -11,7 +11,7 @@
 
 **范围内**:导航项、列表页、详情页、Markdown 帖子内容模型、双语、产品 tag 筛选、全局点赞计数、talks 专属 doodle 与动画。
 
-**范围外(YAGNI)**:评论、RSS、全文搜索、分页、标签管理后台、富文本编辑器、漂亮 URL 重写(用 query 参数即可)、Markdown 内容的 XSS 净化(内容均为站长本人撰写,可信)。
+**范围外(YAGNI)**:评论、RSS、全文搜索、分页、标签管理后台、富文本编辑器、Markdown 内容的 XSS 净化(内容均为站长本人撰写,可信)。
 
 ## 信息架构 / 文件
 
@@ -24,11 +24,26 @@ talks/<slug>.en.md             帖子正文,英文
 js/talks.js                    列表渲染 + 详情渲染 + markdown + 点赞
 js/vendor/marked.min.js        本地 vendored 的 markdown 库
 api/likes.js                   serverless function:点赞读/写
+vercel.json                    漂亮 URL 重写规则(新增)
 partials/nav.html              新增 talks 导航项(改)
 css/style.css                  talks 样式 + 动画(改)
 js/main.js                     markActive 支持 talks 子页高亮(改)
 assets/doodles/talks-*.png     已就绪(见下)
 ```
+
+### slug 命名:日期前缀
+
+slug 采用「日期 + 短关键词」,例如 `2026-06-27-notiee-1-0-5`。好处:文件名/清单天然按时间排序;ascii、可读、利于分享;非中文标题;加日期短词避免同天撞名。md 文件即 `talks/2026-06-27-notiee-1-0-5.zh.md` / `.en.md`。
+
+### 漂亮 URL
+
+对外链接用 `/talks/<slug>`(无 `.html`、无 `?p=`)。靠 `vercel.json` 重写实现:
+
+```json
+{ "rewrites": [{ "source": "/talks/:slug", "destination": "/talks/detail.html?p=:slug" }] }
+```
+
+详情页 JS 仍从 `?p=` 读 slug(重写对用户透明);列表页卡片 `href` 指向漂亮路径 `/talks/<slug>`。需排除已有静态文件(`detail.html`、`posts.json`、`*.md`)被规则吞掉——`:slug` 仅匹配单段、且这些文件有自己的真实路径,Vercel 优先命中真实文件,故安全。
 
 ### 为什么用 `posts.json` 清单
 
@@ -39,7 +54,7 @@ assets/doodles/talks-*.png     已就绪(见下)
 ```json
 [
   {
-    "slug": "notiee-1-0-5",
+    "slug": "2026-06-27-notiee-1-0-5",
     "date": "2026-06-27",
     "tags": ["notiee"],
     "title": { "zh": "notiee 1.0.5 更新说明", "en": "notiee 1.0.5 update info" },
@@ -74,7 +89,7 @@ assets/doodles/talks-*.png     已就绪(见下)
 ## 详情页(talks/detail.html)
 
 - 骨架对标 [works/notiee.html](../../../works/notiee.html):`← talks` 返回链接 → 日历 doodle + 日期 → 标题 → 点赞 → 正文。
-- `js/talks.js` 从 URL 读 `?p=<slug>`,在 `posts.json` 找到该帖,按当前语言 fetch 对应 `.md`,用 marked 渲染进正文容器。
+- `js/talks.js` 从 URL 读 `?p=<slug>`(漂亮 URL 经 vercel 重写后参数透明传入),在 `posts.json` 找到该帖,按当前语言 fetch 对应 `.md`,用 marked 渲染进正文容器。
 - **字体**:标题、日历旁的日期文字用 `--font-hand`(tanqinghuafont);正文、按钮、tag 用 `--font-body`。
 - **点赞爱心**:放在标题正下方。
 - 语言切换(`langchange` 事件)时重新 fetch 当前帖的另一语言 md 并重渲染正文。
@@ -117,14 +132,17 @@ assets/doodles/talks-*.png     已就绪(见下)
 | `talks-tree.png` | 列表页右上 | 静止(同 works-tree) |
 | `talks-brid.png` | 列表页、树旁 | 自由浮动:轻微上下平移 + 偏头(`@keyframes`,缓动、循环、alternate) |
 | `talks-bag.png` | 详情页右上 | 极缓慢摇摆(小角度 rotate 往复,像被风吹) |
-| `talks-bagstars.png` | 详情页、袋子上 | **彩蛋**:逐帧旋转 + 可拖拽(见下) |
+| `talks-star-1/2/3.png` | 详情页、袋子周围 | **彩蛋**:三颗各自逐帧旋转 + 可分别拖拽(见下) |
 | `talks-calendar.png` | 详情页日期旁 inline | 静止 |
 
-### bagstars 彩蛋
+> `talks-star-1/2/3.png` 由原 `talks-bagstars.png` 程序拆分而来(连通域裁剪,各保留手绘原貌);原图已被取代、不再引用,可删。
 
-- **逐帧旋转**:`animation: <spin> 0.7s steps(N) infinite;`,用 `steps()` 做出一格一格的定格转动观感(周期 0.6–0.8s 区间,取 0.7s)。
-- **可拖拽**:沿用 [js/main.js](../../../js/main.js) 小猫 `setupCatDrag` 的指针拖拽机制,但**落在哪停哪、不蹦回原位**(去掉 hopHome 逻辑)。拖动中保持旋转。
-- 抽成 `js/talks.js` 里独立函数,或泛化 main.js 的拖拽工具复用。
+### 星星彩蛋
+
+- **三颗独立**:`talks-star-1`(大)、`-2`(中)、`-3`(小),摆在袋子周围不同位置,各自是独立 DOM 元素。
+- **逐帧旋转**:`animation: <spin> 0.7s steps(N) infinite;`,用 `steps()` 做一格一格的定格转动观感(周期取 0.6–0.8s,如 0.7s);三颗用不同 `animation-delay` / 步数错开,不同步。
+- **可分别拖拽**:沿用 [js/main.js](../../../js/main.js) 小猫 `setupCatDrag` 的指针拖拽机制,但**落在哪停哪、不蹦回原位**(去掉 hopHome 逻辑),每颗星独立绑定。拖动中保持旋转。
+- 抽成 `js/talks.js` 里可复用的拖拽函数(对一组元素逐个绑定)。
 
 ## 字体落点
 
@@ -136,5 +154,6 @@ assets/doodles/talks-*.png     已就绪(见下)
 - 列表页:无 tag 默认全显;点 chip 正确过滤;空过滤结果有兜底文案。
 - 详情页:`?p=<slug>` 正确加载对应帖;中英切换正文跟随;marked 渲染正常。
 - 点赞:GET 显示数;首次点击 +1 并持久(刷新仍填充);同浏览器重复点击不再 +1;serverless function 在 preview/production 环境读到 KV 变量。
-- doodle:brid 浮动、bag 摇摆、bagstars 逐帧转 + 可拖拽落定;dreamland 主题下 talks 页 doodle 不被反色(因不设 theme)。
+- doodle:brid 浮动、bag 摇摆、三颗星各自逐帧转 + 可分别拖拽落定;dreamland 主题下 talks 页 doodle 不被反色(因不设 theme)。
+- 漂亮 URL:`/talks/<slug>` 经 vercel 重写正确加载;`posts.json`、`*.md` 等真实文件不被重写规则误吞。
 - 响应式:窄屏 doodle 收起 / 缩放,沿用现有 `@media` 断点处理。
