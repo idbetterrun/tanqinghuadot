@@ -93,7 +93,10 @@
 
     /* contact */
     "contact.title": "打个招呼",
-    "contact.intro": "邮件是找我最快的方式——或者在网上各个角落也能找到我。"
+    "contact.intro": "邮件是找我最快的方式——或者在网上各个角落也能找到我。",
+
+    /* talks */
+    "talks.filterAria": "按产品筛选"
   };
 
   var GREETINGS = {

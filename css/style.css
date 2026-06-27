@@ -641,6 +641,80 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 }
 
 /* ============================================================
+   Talks 列表 + 筛选 chip
+   ============================================================ */
+.talks-filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 36px; }
+.talks-chip {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  padding: 5px 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: .55;
+  transition: background-color .2s ease, color .2s ease, opacity .2s ease, transform .1s ease;
+}
+.talks-chip:hover { opacity: .85; }
+.talks-chip.active {
+  opacity: 1;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1A1A1A;
+}
+.talks-chip:active { transform: translateY(1px); }
+
+.talks-list { list-style: none; padding: 0; margin: 0; }
+.talks-item { margin: 0 0 30px; }
+.talks-item-link { display: block; text-decoration: none; }
+.talks-item-date {
+  display: block;
+  font-family: var(--font-body);
+  font-size: .8rem;
+  opacity: .5;
+  margin-bottom: 4px;
+}
+.talks-item-title {
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 1.8rem;
+  line-height: 1.15;
+}
+.talks-item-summary {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  opacity: .45;
+  margin-top: 6px;
+  max-width: 48ch;
+  transition: opacity .3s ease;
+}
+.talks-item-link:hover .talks-item-summary { opacity: .8; }
+.talks-item-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.talks-tag {
+  font-family: var(--font-body);
+  font-size: .72rem;
+  opacity: .55;
+  padding: 2px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+}
+.talks-empty { font-family: var(--font-body); opacity: .5; }
+
+/* talks 列表涂鸦:树(静) + 小鸟(浮动) */
+.talks-doodles .tree { top: 0; right: 0; width: 240px; }
+.talks-doodles .brid {
+  top: 24px; right: 250px; width: 64px;
+  transform-origin: center;
+  animation: bridFloat 3.6s ease-in-out infinite;
+}
+@keyframes bridFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(-6deg); }
+}
+
+/* ============================================================
    无障碍 / reduced-motion
    ============================================================ */
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
