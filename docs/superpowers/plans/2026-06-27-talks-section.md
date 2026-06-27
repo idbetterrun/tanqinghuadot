@@ -23,7 +23,7 @@
 | `talks.html` | 列表页骨架 | 建 |
 | `talks/detail.html` | 详情页模板 | 建 |
 | `talks/posts.json` | 帖子清单(元数据 + 双语标题/摘要) | 建 |
-| `talks/2026-06-27-notiee-1-0-5.zh.md` / `.en.md` | 种子帖子正文 | 建 |
+| `talks/2026-06-28-what-is-talks.zh.md` / `.en.md` | 种子帖子正文 | 建 |
 | `js/talks.js` | 列表渲染 + 详情渲染 + 点赞 + 星星拖拽 | 建(分任务逐步充实) |
 | `js/vendor/marked.min.js` | markdown 库 | 建(vendored) |
 | `api/likes.js` | 点赞读/写 serverless function | 建 |
@@ -103,8 +103,8 @@ git commit -m "feat(talks): 导航新增 talks 项 + 子页高亮"
 
 **Files:**
 - Create: `talks/posts.json`
-- Create: `talks/2026-06-27-notiee-1-0-5.zh.md`
-- Create: `talks/2026-06-27-notiee-1-0-5.en.md`
+- Create: `talks/2026-06-28-what-is-talks.zh.md`
+- Create: `talks/2026-06-28-what-is-talks.en.md`
 
 - [ ] **Step 1: 建 posts.json**
 
@@ -113,51 +113,51 @@ git commit -m "feat(talks): 导航新增 talks 项 + 子页高亮"
 ```json
 [
   {
-    "slug": "2026-06-27-notiee-1-0-5",
-    "date": "2026-06-27",
-    "tags": ["notiee"],
+    "slug": "2026-06-28-what-is-talks",
+    "date": "2026-06-28",
+    "tags": [],
     "title": {
-      "zh": "notiee 1.0.5 更新说明",
-      "en": "notiee 1.0.5 update info"
+      "zh": "talks 是什么",
+      "en": "what talks is"
     },
     "summary": {
-      "zh": "灵动岛倒计时优化、若干修复,以及一点关于下一步的碎碎念。",
-      "en": "dynamic island countdown polish, a few fixes, and some thoughts on what's next."
+      "zh": "给我的小网站加了个博客角落——这是它的第一篇。",
+      "en": "i gave my little site a blog-ish corner. this is its first note."
     }
   }
 ]
 ```
 
-- [ ] **Step 2: 建中文正文 `talks/2026-06-27-notiee-1-0-5.zh.md`**
+> 这篇是 talks 自我介绍,`tags` 为空——正好作为「无 tag 碎碎念」的样例(默认列表显示、任何产品 chip 都会把它筛掉)。
+
+- [ ] **Step 2: 建中文正文 `talks/2026-06-28-what-is-talks.zh.md`**
 
 ```markdown
-## 这次更新
+前几天做出了 notiee 1.0.5,想到没有什么地方能放 notiee 的更新日志,还有这几天状态不是这么好,想写点什么但是又不想放到社媒,于是就想到可以给我的小网站做一个博客类型的功能。所以,talks 出现了。
 
-- 优化了灵动岛上的倒计时,现在跨时区也准了。
-- 修了几个 ocr 偶尔吞掉公式的问题。
-- spark 助手响应更快了一点。
+talks 以后会出现各种东西,包括但不限于某个 app 的更新日志或者是一些远期计划,亦或是我自己个人的一些思考和 idea 记录,也会有一些偏向强烈情感性的东西(当然如果比较负面,我会在点进详情页之前出现弹窗提示「此篇文章具有较强的负面情绪,可能会影响心情」之类巴拉巴拉的)。
 
-## 下一步想做的
+最后也谢谢和感恩每个访问我的网站的人,谢谢你愿意了解我,了解我的不算很厉害的经历、不怎么惊艳的产品,还有我的普普通通小世界。
 
-把每条笔记和日历的关联做得更聪明——少问你一次「这是哪节课」。
+再次感谢。
 
-> 顺便:有人在问安卓版,暂时还没有计划,先把 iOS 打磨好。
+idbetterrun
 ```
 
-- [ ] **Step 3: 建英文正文 `talks/2026-06-27-notiee-1-0-5.en.md`**
+- [ ] **Step 3: 建英文正文 `talks/2026-06-28-what-is-talks.en.md`**
+
+(英文按站点整体语气:全小写、温和、略自嘲)
 
 ```markdown
-## what's in this update
+a few days ago i finished notiee 1.0.5, and realized there was nowhere to put its changelog. and lately i haven't been in great shape — i wanted to write something down, but didn't want to put it on social media. so it hit me that i could give my little site a blog-ish corner. and that's how talks came to be.
 
-- polished the dynamic island countdown — it's accurate across time zones now.
-- fixed a few cases where ocr would swallow formulas.
-- spark assistant responds a bit faster.
+talks will hold all kinds of things from here on — changelogs for some app, longer-term plans, or just my own thoughts and stray ideas. some of it will lean more emotional, too (and if a piece runs pretty negative, i'll put up a little heads-up before you open it — something like "this one carries some heavy feelings, it might weigh on you," that sort of thing).
 
-## what's next
+and finally, thank you — really — to everyone who stops by my site. thank you for wanting to know me: my not-so-impressive story, my not-so-dazzling little products, and my plain, ordinary little world.
 
-making the note-to-calendar linking smarter — so it asks "which class is this?" one less time.
+thank you, again.
 
-> btw: people keep asking about android. no plans yet — polishing iOS first.
+idbetterrun
 ```
 
 - [ ] **Step 4: 验证 JSON 合法**
@@ -168,8 +168,8 @@ Expected: 打印 `posts.json OK`
 - [ ] **Step 5: Commit**
 
 ```bash
-git add talks/posts.json talks/2026-06-27-notiee-1-0-5.zh.md talks/2026-06-27-notiee-1-0-5.en.md
-git commit -m "feat(talks): 种子帖子 notiee 1.0.5(清单 + 中英 md)"
+git add talks/posts.json talks/2026-06-28-what-is-talks.zh.md talks/2026-06-28-what-is-talks.en.md
+git commit -m "feat(talks): 种子帖子「talks 是什么」(清单 + 中英 md)"
 ```
 
 ---
@@ -419,8 +419,8 @@ git commit -m "feat(talks): 种子帖子 notiee 1.0.5(清单 + 中英 md)"
 - [ ] **Step 4: 验证列表渲染与筛选**
 
 `vercel dev` 跑起来,浏览器开 `http://localhost:3000/talks.html`:
-- 看到种子帖卡片(日期 + 标题 + 摘要 + `notiee` tag)。
-- 点 `notiee` chip:卡片仍在(它带该 tag);再点取消。点 `dreamland` chip:列表变空、显示 "nothing here yet."。
+- 看到种子帖卡片(日期 + 标题「what talks is / talks 是什么」+ 摘要;此篇无 tag,卡片不显示 tag)。
+- 点任意产品 chip(如 `notiee`):因这篇无 tag,列表变空、显示 "nothing here yet.";再点同一 chip 取消、卡片回来。
 - 切中/En:标题、摘要、日期跟随语言变化。
 - 右上出现树 + 浮动的小鸟。
 - console 无报错。
@@ -622,7 +622,7 @@ body[data-theme="dreamland"] .talks-body code { background: rgba(255,255,255,.12
 
 - [ ] **Step 5: 验证详情页**
 
-`vercel dev` 下访问 `http://localhost:3000/talks/detail.html?p=2026-06-27-notiee-1-0-5`:
+`vercel dev` 下访问 `http://localhost:3000/talks/detail.html?p=2026-06-28-what-is-talks`:
 - 看到 `← talks`、日历图 + 日期、标题、心形按钮(数字暂为 `·`)、markdown 正文(标题/列表/引用都渲染了)。
 - 切中/En:标题、日期、正文整体切换语言。
 - 右上看到袋子在缓慢摇摆(星星样式/动画 Task 8 才完整)。
@@ -658,7 +658,7 @@ git commit -m "feat(talks): 详情页 + marked 渲染 + 双语正文切换"
 
 - [ ] **Step 2: 验证重写(本地 vercel dev 会应用 vercel.json)**
 
-重启 `vercel dev`,访问漂亮 URL `http://localhost:3000/talks/2026-06-27-notiee-1-0-5`:
+重启 `vercel dev`,访问漂亮 URL `http://localhost:3000/talks/2026-06-28-what-is-talks`:
 - 详情页正常渲染(与 `?p=` 版一致)。
 - 同时 `http://localhost:3000/talks/posts.json` 仍返回 JSON 原文(未被重写)。
 - 列表页卡片链接已是 `/talks/<slug>`(Task 3 已如此),点击能跳到漂亮 URL。
@@ -728,11 +728,11 @@ module.exports = async function handler(req, res) {
 
 ```bash
 # 读(初始应为 0)
-curl -s "http://localhost:3000/api/likes?slug=2026-06-27-notiee-1-0-5"
+curl -s "http://localhost:3000/api/likes?slug=2026-06-28-what-is-talks"
 # 写 +1
-curl -s -X POST "http://localhost:3000/api/likes" -H "Content-Type: application/json" -d '{"slug":"2026-06-27-notiee-1-0-5"}'
+curl -s -X POST "http://localhost:3000/api/likes" -H "Content-Type: application/json" -d '{"slug":"2026-06-28-what-is-talks"}'
 # 再读(应比上一步大 1)
-curl -s "http://localhost:3000/api/likes?slug=2026-06-27-notiee-1-0-5"
+curl -s "http://localhost:3000/api/likes?slug=2026-06-28-what-is-talks"
 # 非法 slug(应 400)
 curl -s -o /dev/null -w "%{http_code}\n" "http://localhost:3000/api/likes?slug=../evil"
 ```
@@ -829,7 +829,7 @@ git commit -m "feat(talks): 点赞 serverless function(@vercel/kv,slug 校验)"
 
 - [ ] **Step 3: 验证点赞**
 
-`vercel dev` + `vercel env pull` 已就绪。访问 `http://localhost:3000/talks/2026-06-27-notiee-1-0-5`:
+`vercel dev` + `vercel env pull` 已就绪。访问 `http://localhost:3000/talks/2026-06-28-what-is-talks`:
 - 爱心旁显示当前赞数(数字,非 `·`)。
 - 点爱心:填红 + 数字 +1。
 - 刷新页面:爱心仍是已赞态(localStorage),数字保持。
@@ -987,7 +987,7 @@ git status --short
 
 `vercel dev` 下逐项走查并截图:
 1. 列表页:卡片、chip 筛选、中/En 切换、树+小鸟动画。
-2. 漂亮 URL `/talks/2026-06-27-notiee-1-0-5` 打开详情。
+2. 漂亮 URL `/talks/2026-06-28-what-is-talks` 打开详情。
 3. 详情页:日历+日期(手写体)、标题(手写体)、点赞 +1 与持久、markdown 正文、袋子摇摆、三颗星逐帧转 + 可拖。
 4. 导航:talks 高亮(列表页与详情页都高亮)。
 5. 窄屏(375):布局正常、星星隐藏。
