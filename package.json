@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/idbetterrun/tanqinghuadot/issues"
   },
-  "homepage": "https://github.com/idbetterrun/tanqinghuadot#readme"
+  "homepage": "https://github.com/idbetterrun/tanqinghuadot#readme",
+  "dependencies": {
+    "@vercel/kv": "^3.0.0"
+  }
 }
