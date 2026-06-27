@@ -7,3 +7,11 @@ assets/works/*/png
 
 # dependencies
 node_modules/
+.superpowers/
+
+# personal resume (single-page html, kept out of the website)
+resume/
+
+# vercel local env + secrets (KV tokens) — never commit
+.vercel/
+.env*.local
