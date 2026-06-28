@@ -267,7 +267,7 @@
     var slot = document.getElementById("nav-placeholder");
     if (!slot) { markActive(); return; }
 
-    fetch("/partials/nav.html?v=2")
+    fetch("/partials/nav.html?v=3")
       .then(function (res) { return res.text(); })
       .then(function (html) {
         slot.innerHTML = html;
