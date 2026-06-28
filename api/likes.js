@@ -9,6 +9,10 @@ const redis = new Redis({
 // 只允许「日期前缀 slug」,防止往 KV 写任意 key
 const SLUG_RE = /^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/;
 
+// 合法 slug 必须是已发布的帖子(防止往 KV 写任意 key)
+const POSTS = require("../talks/posts.json");
+const VALID_SLUGS = new Set(POSTS.map(function (p) { return p.slug; }));
+
 module.exports = async function handler(req, res) {
   if (req.method !== "GET" && req.method !== "POST") {
     res.setHeader("Allow", "GET, POST");
@@ -19,7 +23,7 @@ module.exports = async function handler(req, res) {
     ? (req.body && req.body.slug)
     : (req.query && req.query.slug);
 
-  if (typeof slug !== "string" || !SLUG_RE.test(slug)) {
+  if (typeof slug !== "string" || !SLUG_RE.test(slug) || !VALID_SLUGS.has(slug)) {
     return res.status(400).json({ error: "invalid slug" });
   }
 
