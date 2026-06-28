@@ -129,7 +129,44 @@
         .catch(function () {});
     });
   }
-  function setupStars(scope) { /* Task 9 */ }
+  function setupStars(scope) {
+    (scope || document).querySelectorAll(".talks-detail-doodles .star").forEach(function (star) {
+      var dragging = false, grabX = 0, grabY = 0;
+
+      star.addEventListener("pointerdown", function (e) {
+        e.preventDefault();
+        var r = star.getBoundingClientRect();
+        if (!star.classList.contains("loose")) {
+          star.classList.add("loose");
+          star.style.position = "fixed";
+          star.style.margin = "0";
+          star.style.right = "auto";
+        }
+        star.style.left = r.left + "px";
+        star.style.top = r.top + "px";
+        star.classList.add("dragging");
+        grabX = e.clientX - r.left;
+        grabY = e.clientY - r.top;
+        dragging = true;
+        try { star.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+
+      star.addEventListener("pointermove", function (e) {
+        if (!dragging) return;
+        star.style.left = (e.clientX - grabX) + "px";
+        star.style.top = (e.clientY - grabY) + "px";
+      });
+
+      function end(e) {
+        if (!dragging) return;
+        dragging = false;
+        star.classList.remove("dragging");
+        try { star.releasePointerCapture(e.pointerId); } catch (_) {}
+      }
+      star.addEventListener("pointerup", end);
+      star.addEventListener("pointercancel", end);
+    });
+  }
   function renderHead(post, root) {
     var l = lang();
     var titleObj = post.title || {};
