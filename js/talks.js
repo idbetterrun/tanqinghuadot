@@ -198,6 +198,10 @@
 
   function initDetail(root) {
     var slug = new URLSearchParams(location.search).get("p");
+    if (!slug) {
+      var last = location.pathname.split("/").pop() || "";
+      if (last && last !== "detail.html") slug = decodeURIComponent(last);
+    }
     fetchPosts().then(function (posts) {
       var post = posts.filter(function (p) { return p.slug === slug; })[0];
       if (!post) {
