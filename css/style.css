@@ -638,6 +638,9 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
   .home-doodles .z:nth-of-type(3) { bottom: 140px; right: 42px; width: 28px; }
   .works-grid { grid-template-columns: 1fr; gap: 32px; }
   .detail-title { font-size: 2.4rem; }
+  .talks-item-title { font-size: 1.5rem; }
+  .talks-detail-doodles .star { display: none; }   /* 窄屏不放可拖星,避免挡正文 */
+  .talks-cal { width: 38px; }
 }
 
 /* ============================================================
@@ -797,3 +800,17 @@ body[data-theme="dreamland"] .talks-body code { background: rgba(255,255,255,.12
 .like-btn:hover { transform: translateY(-1px); }
 .like-btn.liked svg { fill: #ff5a7a; stroke: #ff5a7a; transform: scale(1.12); }
 .like-btn:not(.liked):active { transform: translateY(1px); }
+
+/* talks 详情:三颗星,各自逐帧旋转(steps),可拖拽(Task 9 绑定) */
+.talks-detail-doodles .star {
+  pointer-events: auto;        /* .doodles 默认 none,星星单独打开 */
+  cursor: grab;
+  touch-action: none;          /* 触屏拖动不滚页 */
+  animation: starSpin 0.7s steps(8) infinite;
+}
+.talks-detail-doodles .star.dragging { cursor: grabbing; }
+.talks-detail-doodles .star.loose { z-index: 60; }   /* 拖出后浮在最上层 */
+.talks-detail-doodles .star.s1 { top: 120px; right: 24px;  width: 50px; animation-duration: 0.7s; }
+.talks-detail-doodles .star.s2 { top: 56px;  right: 140px; width: 40px; animation-duration: 0.8s; animation-delay: -.2s; }
+.talks-detail-doodles .star.s3 { top: 168px; right: 108px; width: 34px; animation-duration: 0.6s; animation-delay: -.45s; }
+@keyframes starSpin { to { transform: rotate(360deg); } }
