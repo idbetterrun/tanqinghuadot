@@ -97,7 +97,12 @@
 
     /* talks */
     "talks.filterAria": "按产品筛选",
-    "talks.likeAria": "点个赞"
+    "talks.likeAria": "点个赞",
+
+    /* contact 致谢 */
+    "credits.head": "致谢",
+    "credits.velour": "网页中的插画在这个账号得到的灵感",
+    "credits.warren": "在新版中文适配中使用了这位作者的寒蝉手拙体"
   };
 
   var GREETINGS = {

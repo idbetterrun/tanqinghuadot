@@ -599,6 +599,43 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 }
 .social-chip:active { transform: translateY(1px); }
 
+/* contact 致谢 */
+.credits { margin-top: 56px; }
+.credits-head {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  margin: 0 0 16px;
+}
+.credits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.credits-list li { display: flex; flex-direction: column; gap: 3px; }
+.credit-name {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  text-decoration: none;
+  width: max-content;
+  max-width: 100%;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  padding-bottom: 1px;
+  transition: background-size .25s ease;
+}
+.credit-name:hover { background-size: 100% 6px; }
+.credit-note {
+  font-family: var(--font-body);
+  font-size: .9rem;
+  opacity: .55;
+  max-width: 46ch;
+}
+
 /* ============================================================
    响应式（桌面优先；窄屏单列、导航转顶部、涂鸦缩小）
    ============================================================ */
