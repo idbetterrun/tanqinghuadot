@@ -1,5 +1,18 @@
 [
   {
+    "slug": "2026-06-29-notiee-1-0-5-changelog",
+    "date": "2026-06-29",
+    "tags": ["notiee"],
+    "title": {
+      "zh": "迟来的 notiee 1.0.5 更新日志",
+      "en": "the belated notiee 1.0.5 changelog"
+    },
+    "summary": {
+      "zh": "纯文字记录、自动翻出相关笔记、日程彩色标签——这一版做了几件一直想做的事。",
+      "en": "plain text notes, auto-surfaced related notes, color tags for events — a few things i'd wanted to do for a while."
+    }
+  },
+  {
     "slug": "2026-06-28-what-is-talks",
     "date": "2026-06-28",
     "tags": [],

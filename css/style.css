@@ -322,7 +322,7 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: var(--font-hand);
+  font-family: "chillzhuo", var(--font-hand);
   font-size: 1.45rem;
   line-height: 1.25;
   color: var(--ink);
