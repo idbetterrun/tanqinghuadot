@@ -221,7 +221,7 @@
       var dur = Math.min(1300, Math.max(650, dist * 1.6));
       var hops = Math.max(2, Math.round(dist / 150));
       var hopH = Math.min(80, 26 + dist * 0.05);
-      var face = dx < 0 ? -1 : 1;
+      var face = dx > 0 ? -1 : 1;
       var t0 = performance.now();
       function frame(now) {
         var t = Math.min(1, (now - t0) / dur);
