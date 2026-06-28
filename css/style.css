@@ -770,3 +770,30 @@ body[data-theme="dreamland"] .talks-body code { background: rgba(255,255,255,.12
   0%, 100% { transform: rotate(-2.5deg); }
   50%      { transform: rotate(2.5deg); }
 }
+
+/* talks 点赞爱心(标题下) */
+.talks-like { margin: 0 0 34px; }
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 12px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: .95rem;
+  cursor: pointer;
+  transition: background-color .2s ease, transform .1s ease;
+}
+.like-btn svg {
+  width: 20px; height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  transition: fill .2s ease, transform .15s ease;
+}
+.like-btn .like-count { font-family: var(--font-body); font-size: .95rem; }
+.like-btn:hover { transform: translateY(-1px); }
+.like-btn.liked svg { fill: #ff5a7a; stroke: #ff5a7a; transform: scale(1.12); }
+.like-btn:not(.liked):active { transform: translateY(1px); }

@@ -96,7 +96,8 @@
     "contact.intro": "邮件是找我最快的方式——或者在网上各个角落也能找到我。",
 
     /* talks */
-    "talks.filterAria": "按产品筛选"
+    "talks.filterAria": "按产品筛选",
+    "talks.likeAria": "点个赞"
   };
 
   var GREETINGS = {

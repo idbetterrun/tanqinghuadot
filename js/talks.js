@@ -96,7 +96,39 @@
   }
 
   /* ---------- 详情页(Task 4 填充) ---------- */
-  function setupLike(slug, root) { /* Task 7 */ }
+  function setupLike(slug, root) {
+    var box = root.querySelector("[data-talks-like]");
+    if (!box) return;
+    var btn = box.querySelector(".like-btn");
+    var countEl = box.querySelector("[data-talks-likecount]");
+    if (!btn || !countEl) return;
+    var likedKey = "liked:" + slug;
+    var liked = false;
+    try { liked = localStorage.getItem(likedKey) === "1"; } catch (_) {}
+    if (liked) btn.classList.add("liked");
+
+    var posted = false;
+    fetch("/api/likes?slug=" + encodeURIComponent(slug))
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("likes " + r.status)); })
+      .then(function (d) { if (!posted && typeof d.count === "number") countEl.textContent = d.count; })
+      .catch(function () { if (!posted) countEl.textContent = "0"; });
+
+    btn.addEventListener("click", function () {
+      if (liked) return;
+      liked = true;
+      posted = true;
+      btn.classList.add("liked");
+      try { localStorage.setItem(likedKey, "1"); } catch (_) {}
+      fetch("/api/likes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: slug })
+      })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("likes " + r.status)); })
+        .then(function (d) { if (typeof d.count === "number") countEl.textContent = d.count; })
+        .catch(function () {});
+    });
+  }
   function setupStars(scope) { /* Task 9 */ }
   function renderHead(post, root) {
     var l = lang();
