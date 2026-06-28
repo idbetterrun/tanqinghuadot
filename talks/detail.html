@@ -27,7 +27,11 @@
       <a class="back-link" href="/talks.html">← talks</a>
 
       <p class="talks-date">
-        <img class="talks-cal" src="/assets/doodles/talks-calendar.png" alt="" aria-hidden="true" onerror="this.remove()">
+        <span class="talks-cal" aria-hidden="true">
+          <img class="talks-cal-img" src="/assets/doodles/talks-calendar.png" alt="" onerror="this.closest('.talks-cal').classList.add('no-img')">
+          <span class="talks-cal-month" data-talks-month></span>
+          <span class="talks-cal-day" data-talks-day></span>
+        </span>
         <span class="talks-date-text" data-talks-date></span>
       </p>
 

@@ -9,9 +9,14 @@
   src: url("/assets/fonts/tanqinghuafont.woff2") format("woff2");
   font-display: swap;
 }
+@font-face {
+  font-family: "chillzhuo";
+  src: url("/assets/fonts/ChillZhuo.woff2") format("woff2");
+  font-display: swap;
+}
 
 :root {
-  --font-hand: "tanqinghua", system-ui, sans-serif;          /* 网站名 + 标题 */
+  --font-hand: "tanqinghua", "chillzhuo", system-ui, sans-serif;   /* 标题:拉丁走 tanqinghua,中文(tanqinghua 无此字形)回落 chillzhuo */
   --font-body: "Inter", "Work Sans", system-ui, sans-serif;  /* 正文 / 其余一切 */
 
   /* 基础主题（home / about / works列表 / contact） */
@@ -44,12 +49,8 @@ body {
 
 a { color: inherit; }
 
-/* 中文模式：正文与几个原本手写体的标题回落到中文系统字体 */
-html[lang="zh"] body,
-html[lang="zh"] .contact-title,
-html[lang="zh"] .modal-q,
-html[lang="zh"] .note-bubble-text,
-html[lang="zh"] .resume-head {
+/* 中文模式：正文用中文系统字体；标题手写体的中文字符由 --font-hand 里的 chillzhuo 兜底(见上) */
+html[lang="zh"] body {
   font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
 }
 
@@ -640,7 +641,7 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
   .detail-title { font-size: 2.4rem; }
   .talks-item-title { font-size: 1.5rem; }
   .talks-detail-doodles .star { display: none; }   /* 窄屏不放可拖星,避免挡正文 */
-  .talks-cal { width: 38px; }
+  .talks-cal { width: 50px; }
 }
 
 /* ============================================================
@@ -706,9 +707,9 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 .talks-empty { font-family: var(--font-body); opacity: .5; }
 
 /* talks 列表涂鸦:树(静) + 小鸟(浮动) */
-.talks-doodles .tree { top: 0; right: 0; width: 240px; }
+.talks-doodles .tree { top: 0; right: 0; width: 196px; }
 .talks-doodles .brid {
-  top: 24px; right: 250px; width: 64px;
+  top: 18px; right: 206px; width: 52px;
   transform-origin: center;
   animation: bridFloat 3.6s ease-in-out infinite;
 }
@@ -735,7 +736,35 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
    Talks 详情
    ============================================================ */
 .talks-date { display: flex; align-items: center; gap: 12px; margin: 0 0 6px; }
-.talks-cal { width: 46px; height: auto; }
+/* 日历:撕页本,上侧印月份简写、下侧印日期数字(JS 绑定) */
+.talks-cal {
+  position: relative;
+  display: inline-block;
+  width: 58px;
+  flex: none;
+  line-height: 0;
+}
+.talks-cal-img { display: block; width: 100%; height: auto; }
+.talks-cal-month,
+.talks-cal-day {
+  position: absolute;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-hand);
+  color: var(--ink);
+  line-height: 1;
+  pointer-events: none;
+}
+.talks-cal-month {
+  top: 12%;
+  font-size: .5rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.talks-cal-day {
+  top: 40%;
+  font-size: 1.2rem;
+}
 .talks-date-text {
   font-family: var(--font-hand);
   font-size: 1.35rem;
@@ -801,16 +830,16 @@ body[data-theme="dreamland"] .talks-body code { background: rgba(255,255,255,.12
 .like-btn.liked svg { fill: #ff5a7a; stroke: #ff5a7a; transform: scale(1.12); }
 .like-btn:not(.liked):active { transform: translateY(1px); }
 
-/* talks 详情:三颗星,各自逐帧旋转(steps),可拖拽(Task 9 绑定) */
+/* talks 详情:三颗星是袋子前侧面的图案(印花),小而慢地逐帧转;彩蛋是可分别拖走 */
 .talks-detail-doodles .star {
   pointer-events: auto;        /* .doodles 默认 none,星星单独打开 */
   cursor: grab;
   touch-action: none;          /* 触屏拖动不滚页 */
-  animation: starSpin 0.7s steps(8) infinite;
+  animation: starSpin 2s steps(8) infinite;
 }
 .talks-detail-doodles .star.dragging { cursor: grabbing; }
 .talks-detail-doodles .star.loose { z-index: 60; }   /* 拖出后浮在最上层 */
-.talks-detail-doodles .star.s1 { top: 120px; right: 24px;  width: 50px; animation-duration: 0.7s; }
-.talks-detail-doodles .star.s2 { top: 56px;  right: 140px; width: 40px; animation-duration: 0.8s; animation-delay: -.2s; }
-.talks-detail-doodles .star.s3 { top: 168px; right: 108px; width: 34px; animation-duration: 0.6s; animation-delay: -.45s; }
+.talks-detail-doodles .star.s1 { top: 96px;  right: 96px; width: 30px; animation-duration: 2s; }
+.talks-detail-doodles .star.s2 { top: 122px; right: 64px; width: 23px; animation-duration: 2.4s; animation-delay: -.3s; }
+.talks-detail-doodles .star.s3 { top: 142px; right: 106px; width: 18px; animation-duration: 2.8s; animation-delay: -.6s; }
 @keyframes starSpin { to { transform: rotate(360deg); } }

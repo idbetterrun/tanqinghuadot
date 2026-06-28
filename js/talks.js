@@ -167,11 +167,19 @@
       star.addEventListener("pointercancel", end);
     });
   }
+  var CAL_MON = ["jan", "feb", "mar", "apr", "may", "jun",
+                 "jul", "aug", "sep", "oct", "nov", "dec"];
+
   function renderHead(post, root) {
     var l = lang();
     var titleObj = post.title || {};
     var dEl = root.querySelector("[data-talks-date]");
     var tEl = root.querySelector("[data-talks-title]");
+    var mEl = root.querySelector("[data-talks-month]");
+    var dayEl = root.querySelector("[data-talks-day]");
+    var cd = new Date(post.date + "T00:00:00");
+    if (mEl) mEl.textContent = CAL_MON[cd.getMonth()];     /* 日历上侧:月份简写 jan/feb… */
+    if (dayEl) dayEl.textContent = cd.getDate();           /* 日历下侧:日期数字 */
     if (dEl) dEl.textContent = fmtDate(post.date, l);
     if (tEl) tEl.textContent = titleObj[l] || titleObj.en || "";
     document.title = (titleObj[l] || titleObj.en || "talks") + " — tanqinghua.";
