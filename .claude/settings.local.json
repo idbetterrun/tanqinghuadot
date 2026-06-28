@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m http.server 8000)",
+      "Bash(curl -s -o /dev/null -w \"index.html %{http_code}\\\\n\" http://localhost:8000/index.html)",
+      "Bash(curl -s -o /dev/null -w \"nav partial %{http_code}\\\\n\" http://localhost:8000/partials/nav.html)",
+      "Bash(curl -s -o /dev/null -w \"style.css %{http_code}\\\\n\" http://localhost:8000/css/style.css)",
+      "Bash(curl -s -o /dev/null -w \"main.js %{http_code}\\\\n\" http://localhost:8000/js/main.js)",
+      "Bash(curl -s \"http://localhost:3000/css/style.css\")",
+      "Bash(curl -s \"http://localhost:3000/contact.html\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(sw_vers -productVersion)",
+      "Bash(sips --formats)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)",
+      "Bash(node -e ' *)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite show a11f22b:index.html)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite show a11f22b:about.html)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite show a11f22b --name-only)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite show a11f22b:works/notiee.html)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite diff 9244aed a11f22b -- about.html)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite show a11f22b:js/main.js)",
+      "Bash(node --check js/i18n.js)",
+      "Bash(git commit *)",
+      "Bash(node --check /Users/tanqinghua/Personal/mypersonalwebsite/js/main.js)",
+      "Bash(node --check js/main.js)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite add works.html)",
+      "Bash(git -C /Users/tanqinghua/Personal/mypersonalwebsite commit -m \"feat\\(i18n\\): works 列表介绍双语标记\")",
+      "Bash(scripts/start-server.sh --project-dir /Users/tanqinghua/Personal/mypersonalwebsite)"
+    ]
+  }
+}
