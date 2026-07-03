@@ -1,5 +1,18 @@
 [
   {
+    "slug": "2026-07-03-whats-up-lately",
+    "date": "2026-07-03",
+    "tags": ["notiee", "dreamland", "artista", "tomanotes"],
+    "title": {
+      "zh": "最近在干啥",
+      "en": "what i've been up to lately"
+    },
+    "summary": {
+      "zh": "notiee+ 快上架了，聊聊 dreamland 的重做、idbettershua!、还有终于收到的第一个大厂 oc。",
+      "en": "notiee+ is almost live — plus dreamland's rebuild, a little quiz site, and my first big-tech offer call."
+    }
+  },
+  {
     "slug": "2026-06-29-notiee-1-0-5-changelog",
     "date": "2026-06-29",
     "tags": ["notiee"],
