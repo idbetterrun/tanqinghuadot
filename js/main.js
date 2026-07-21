@@ -258,8 +258,20 @@
     if (!page || page.querySelector(".site-footer")) return;
     var f = document.createElement("footer");
     f.className = "site-footer";
-    f.setAttribute("data-i18n", "footer");
-    f.textContent = "Copyright © 2026 tanqinghua. All Rights Reserved.";
+
+    var copy = document.createElement("span");
+    copy.setAttribute("data-i18n", "footer");
+    copy.textContent = "Copyright © 2026 tanqinghua. All Rights Reserved.";
+    f.appendChild(copy);
+
+    var beian = document.createElement("a");
+    beian.className = "site-beian";
+    beian.href = "https://beian.miit.gov.cn/";
+    beian.target = "_blank";
+    beian.rel = "noopener";
+    beian.textContent = "湘ICP备2026027627号-1";
+    f.appendChild(beian);
+
     page.appendChild(f);
   }
 
