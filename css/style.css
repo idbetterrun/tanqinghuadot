@@ -87,6 +87,11 @@ html[lang="zh"] body {
   gap: 2px;
 }
 
+.site-beian-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
 .site-beian {
   color: inherit;
   text-decoration: none;

@@ -264,13 +264,26 @@
     copy.textContent = "Copyright © 2026 tanqinghua. All Rights Reserved.";
     f.appendChild(copy);
 
+    var beianRow = document.createElement("div");
+    beianRow.className = "site-beian-row";
+
     var beian = document.createElement("a");
     beian.className = "site-beian";
     beian.href = "https://beian.miit.gov.cn/";
     beian.target = "_blank";
     beian.rel = "noopener";
     beian.textContent = "湘ICP备2026027627号-1";
-    f.appendChild(beian);
+    beianRow.appendChild(beian);
+
+    var gabeian = document.createElement("a");
+    gabeian.className = "site-beian";
+    gabeian.href = "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802049439";
+    gabeian.target = "_blank";
+    gabeian.rel = "noopener";
+    gabeian.textContent = "京公网安备 11010802049439 号";
+    beianRow.appendChild(gabeian);
+
+    f.appendChild(beianRow);
 
     page.appendChild(f);
   }
