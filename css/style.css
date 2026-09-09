@@ -389,23 +389,49 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   gap: 48px 56px;
   margin-top: 8px;
 }
-.app-card { display: block; }
+.app-card {
+  display: block;
+  text-decoration: none;
+  transform-origin: center;
+  transition: opacity .32s ease, transform .32s cubic-bezier(.2, .75, .25, 1);
+}
 .app-title {
   font-family: var(--font-hand);
   font-size: 2rem;
-  text-decoration: none;
   display: inline-block;
+  transform-origin: left center;
+  transition: transform .32s cubic-bezier(.2, .75, .25, 1);
 }
 .app-blurb {
+  display: block;
   font-family: var(--font-body);
   font-size: 1rem;
   margin-top: 8px;
   opacity: .35;                          /* 默认半透明，hover 浮现 */
-  transition: opacity .3s ease;
+  transform-origin: left center;
+  transition: opacity .3s ease, transform .32s cubic-bezier(.2, .75, .25, 1);
   max-width: 22ch;
 }
 .app-card:hover .app-blurb,
-.app-card:focus-within .app-blurb { opacity: .8; }
+.app-card:focus-visible .app-blurb { opacity: .8; }
+
+/* 键盘聚焦同样突出当前卡片。 */
+.works-grid:has(.app-card:focus-visible) .app-card:not(:focus-visible) {
+  opacity: .3;
+  transform: scale(.94);
+}
+.app-card:focus-visible .app-title { transform: scale(1.02); }
+.app-card:focus-visible .app-blurb { transform: scale(1.03); }
+
+/* 只在真正支持 hover 的设备上启用指针悬停效果，避免触屏粘滞。 */
+@media (hover: hover) and (pointer: fine) {
+  .works-grid:has(.app-card:hover) .app-card:not(:hover):not(:focus-visible) {
+    opacity: .3;
+    transform: scale(.94);
+  }
+  .app-card:hover .app-title { transform: scale(1.02); }
+  .app-card:hover .app-blurb { transform: scale(1.03); }
+}
 
 /* ============================================================
    App 详情页
@@ -582,19 +608,39 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 
 /* 邮箱：大号，手绘黄色下划线常驻 */
 .contact-email {
+  position: relative;
   display: inline-block;
   font-family: var(--font-body);
   font-size: 1.5rem;
   text-decoration: none;
   margin-bottom: 44px;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 4px;
-  padding-bottom: 3px;
-  transition: background-size .25s ease;
+  padding: 0 4px;
 }
-.contact-email:hover { background-size: 100% 8px; }
+.contact-email > span {
+  position: relative;
+  z-index: 1;
+}
+.contact-email .highlight-line {
+  position: absolute;
+  z-index: 0;
+  left: -2px;
+  bottom: -3px;
+  width: calc(100% + 4px);
+  height: 32px;
+  overflow: visible;
+  pointer-events: none;
+  transform-origin: center bottom;
+  transition: transform .22s ease;
+}
+.contact-email .highlight-line path {
+  stroke: var(--accent);
+  opacity: .76;
+  transition: opacity .22s ease;
+}
+.contact-email:hover .highlight-line,
+.contact-email:focus-visible .highlight-line { transform: scaleY(1.12); }
+.contact-email:hover .highlight-line path,
+.contact-email:focus-visible .highlight-line path { opacity: .92; }
 
 /* 社交：手绘药丸标签，整行铺开，hover 填黄 */
 .social-row { display: flex; flex-wrap: wrap; gap: 14px; }
