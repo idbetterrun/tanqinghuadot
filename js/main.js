@@ -74,6 +74,41 @@
     });
   }
 
+  /* 停更苹果：点开对应项目的弹窗（右下角一个苹果一个项目） */
+  function bindRetiredApples() {
+    if (!document.querySelector(".apple[data-retired]")) return;
+    var lastFocus = null;
+
+    function close(modal) {
+      modal.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    function bindModal(modal) {
+      if (!modal) return;
+      modal.querySelectorAll("[data-dismiss]").forEach(function (el) {
+        el.addEventListener("click", function () { close(modal); });
+      });
+    }
+
+    document.querySelectorAll(".apple[data-retired]").forEach(function (btn) {
+      var modal = document.getElementById("retired-" + btn.getAttribute("data-retired"));
+      if (!modal) return;
+      bindModal(modal);
+      btn.addEventListener("click", function () {
+        lastFocus = btn;
+        modal.hidden = false;
+      });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      document.querySelectorAll("#retired-modals .modal").forEach(function (modal) {
+        if (!modal.hidden) close(modal);
+      });
+    });
+  }
+
   /* 截图全部加载失败时，彻底隐藏空画廊（onerror 已删除 .shot，这里收尾去掉残留间距） */
   function hideEmptyShots() {
     document.querySelectorAll(".shots").forEach(function (group) {
@@ -309,6 +344,7 @@
     injectNav();
     bindWorksHover();
     bindDegreeEasterEgg();
+    bindRetiredApples();
     addFooter();
     setupCatDrag();
     setupNoteBubble();

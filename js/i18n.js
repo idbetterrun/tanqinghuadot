@@ -49,11 +49,11 @@
     "modal.no": "……说实话，我也不好说",
     "about.penAria": "点一下笔",
 
-    /* 标语（works 列表 + 详情页共用） */
-    "blurb.notiee": "一个住在你日历里的 iOS 笔记 app",
-    "blurb.artista": "像做幻灯片一样做网页，mac 原生 app",
+    /* 标语（works 列表 + 详情页共用）
+       注：blurb.artista / blurb.tomanotes 已随两页详情页删除——
+       这两个项目停更、撤出列表，现在只由右下角苹果的弹窗介绍（见 retired.*） */
+    "blurb.notiee": "把拍照、录音和文字攒成能搜索、能追问的知识库的 iOS 笔记 app",
     "blurb.dreamland": "一个能戳一戳的文字小世界，由大模型驱动",
-    "blurb.tomanotes": "一个我做出来的桌面笔记 app，没想到真有人用",
     "blurb.nsad": "想接手一家开在异世界夹缝里的中立食堂吗？那就来试试这款第一视角、粗糙 3D 的喜剧经营游戏吧",
     "blurb.dongdong": "一款面向儿童的运动激励 App",
 
@@ -61,10 +61,13 @@
     "title.dongdong": "动动星球",
 
     /* 详情 notiee */
-    "d.notiee.meta": "即将上架 App Store · 2026 年 5 月起",
-    "d.notiee.p1": "一个 iOS app，把白板、幻灯片、会议记录的照片自动变成结构化的笔记。",
-    "d.notiee.p2": "拍张照，ai 读懂它（ocr + latex），再整理成标题、摘要、要点和待办。它还知道你的日程：会看你的日历，自动把每条笔记关联到你当下正在上的课或开的会。内置一个叫 spark 的 ai 助手，是真能干活的那种——搜笔记、管待办、查日历。你当前的日程甚至会实时显示在灵动岛上，还带倒计时。",
-    "d.notiee.p3": "离线也能用（联网后自动同步），所有东西都留在你手机上。用 swift + swiftui 写的。",
+    "d.notiee.meta": "即将上架 App Store · 现已开放 TestFlight 测试 · iOS 18.0+",
+    "d.notiee.p1": "照片会被读成标题、摘要、要点和关键词，藏在里面的待办也一并拎出来；录音在手机上实时转成文字，能暂停续录、倍速回放，点一句跳到那一句；Markdown 保存即完成。",
+    "d.notiee.p2": "AI 负责 OCR、摘要、详细内容、要点、名词定义和待办提取。认出来的待办和日程直接进入任务列表和日历——系统日历、notiee 事件、AI 排的日程和导入的课表在同一条时间线上，到点提醒，锁屏和灵动岛显示倒计时。只记得大概意思，也能用全文搜索或语义检索翻出来。",
+    "d.notiee.p3": "Notti 是住在资料库里的 AI 伴侣，一共十八项能力：找笔记、整理要点、建待办、改记录、查日程、上网搜索。删除类操作会先问过你，每一步都能撤销；它记住的偏好和长期目标也只留在设备上。",
+    "d.notiee.p4": "数据默认只存在 iPhone 上：单条笔记可加密（加密内容不进搜索也不进同步），支持密码和 Face ID 应用锁，一条笔记能导出成 .tmn（文字图片都带走），整个资料库也能手动备份到 iCloud Drive。免费版每月 30 篇云端 AI，订阅后 300 篇，用尽自动退回本机 OCR；notiee+ 一次性购买，填自己的 Endpoint 和 Key 直连服务商，没有月度上限。支持简体中文、繁體中文和 English。",
+    "d.notiee.tf": "TestFlight 测试",
+    "d.notiee.tfAria": "加入 TestFlight 测试",
     "d.notiee.store": "即将上架 app store",
     "d.notiee.storeAria": "即将上架 App Store",
     "d.notiee.web": "官网",
@@ -84,23 +87,6 @@
     "d.dreamland.iconAlt": "dreamland 应用图标",
     "d.dreamland.shotAlt": "dreamland 截图",
 
-    /* 详情 artista */
-    "d.artista.meta": "还在早期阶段 · 2026 年 6 月起",
-    "d.artista.p1": "一个 mac 原生 app，靠拖拽来搭网页——有点像做幻灯片，只不过画布自始至终都是真正的 html。",
-    "d.artista.p2": "你放下的每一个元素都是真实的 dom 节点。导出时，ai 会读懂你的布局，把它变成干净、响应式的 html/css。反过来也行——把 chatgpt 或 claude 给的 html 贴进来，可视化地改一改，再更干净地导出去。你也可以直接用大白话告诉 ai 要改什么，看着画布跟着变。",
-    "d.artista.p3": "自带 api key（支持六家），所有东西都留在你本机。用 swiftui + webkit 写的。",
-    "d.artista.iconAlt": "artista 应用图标",
-    "d.artista.shotAlt": "artista 截图",
-
-    /* 详情 tomanotes */
-    "d.tomanotes.meta": "2026 年 3 月起",
-    "d.tomanotes.p1": "一个免费、开源、本地优先的 mac 笔记 app。做它是为了配 notiee（我那个 iOS 拍照笔记 app）——它俩共用同一种 .tmn 文件格式，笔记在两边来回搬也不会丢东西。",
-    "d.tomanotes.p2": "两种编辑器合一：富文本（tiptap）或纯 markdown，看你心情。笔记可以用触控 id 锁起来，还能一条一条单独加密。五套主题、三种语言，所有东西都留在你本机。",
-    "d.tomanotes.p3": "mit 协议。代码在 github 上。",
-    "d.tomanotes.download": "↓ 下载",
-    "d.tomanotes.iconAlt": "tomanotes 应用图标",
-    "d.tomanotes.shotAlt": "tomanotes 截图",
-
     /* 详情 nsad（no smiting at the diner）
        注：正文只复述了已确认的信息，具体玩法/引擎/进度等待补 */
     "d.nsad.p1": "第一视角，3D 刻意做得很粗糙。你接手的是开在异世界夹缝里的一家中立食堂——一个喜剧味的经营游戏。",
@@ -111,6 +97,18 @@
        注：目前只有一句话介绍，正文待补 */
     "d.dongdong.iconAlt": "动动星球 应用图标",
     "d.dongdong.shotAlt": "动动星球 截图",
+
+    /* 停更项目（works 右下角的苹果 + 点开的弹窗）
+       注：苹果的填充色和弹窗底色不走这里，写死在 works.html 的
+       .apple[data-retired] 与 .modal-box--retired 上 */
+    "retired.tomanotes.open": "tomanotes — 已停更",
+    "retired.tomanotes.desc": "一个免费、本地优先的 mac 笔记 app，也是我第一个真有陌生人下载的东西。",
+    "retired.tomanotes.why": "停更原因：它会被并进以后的 notiee desktop，所以它在那儿继续活着，不在这儿了。",
+    "retired.artista.open": "artista — 已停更",
+    "retired.artista.desc": "一个 mac 原生 app，靠拖拽来搭网页，有点像做幻灯片。",
+    "retired.artista.why": "停更原因：后来发现自己远没有这种能力，而且 codex 已经做了很接近的事。",
+    "retired.lastVersion": "最后维护版本",
+    "retired.close": "关闭",
 
     /* contact */
     "contact.title": "打个招呼",

@@ -27,12 +27,13 @@
 }
 
 /* ---------- 代表色主题（data-theme） ---------- */
-body[data-theme="tomanotes"]  { --bg: #EAE7E1; --ink: #1A1A1A; }
 body[data-theme="notiee"]     { --bg: #09C576; --ink: #0A2A1B; }
-body[data-theme="artista"]    { --bg: #F5DFF3; --ink: #2A1A28; }
 body[data-theme="dreamland"]  { --bg: #121212; --ink: #F5F5F5; } /* 暗色，文字翻白 */
 body[data-theme="nsad"]       { --bg: #E9B44C; --ink: #3B2A05; } /* 异世界食堂：暖黄 */
 body[data-theme="dongdong"]   { --bg: #A8DAFF; --ink: #0A2D45; } /* 儿童运动：天蓝 */
+/* artista #F5DFF3 / tomanotes #EAE7E1 已停更、撤出列表，
+   两条规则随之删除；它们现在的主题色用在右下角苹果的填充和弹窗上
+   （见「停更项目的苹果」与 modal-box--retired），不再走 data-theme。 */
 
 /* ---------- Reset-ish ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -262,6 +263,48 @@ html[lang="zh"] body {
 }
 .modal-btn:hover { background: var(--accent); border-color: var(--accent); }
 .modal-btn:active { transform: translateY(1px); }
+
+/* 停更苹果的弹窗：整块用那个项目当年的主题色（--bg / --ink 写在元素上） */
+.modal-box--retired { max-width: 460px; }
+/* logo + 项目名。图标一律圆角：tomanotes 那张是不透明方图，artista 是透明圆角图 */
+.modal-head { display: flex; align-items: center; gap: 14px; margin: 0 0 24px; }
+.modal-icon {
+  width: 48px; height: 48px;
+  flex: none;
+  border-radius: 22%;
+  object-fit: cover;
+}
+.modal-title {
+  font-family: var(--font-hand);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin: 0 0 2px;
+}
+.modal-tag {
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .5;
+  margin: 0;
+}
+.modal-body { font-size: 1rem; line-height: 1.7; margin: 0 0 14px; }
+.modal-meta { font-size: .9rem; line-height: 1.6; opacity: .7; margin: 0 0 8px; }
+.modal-meta a { text-decoration: underline; text-underline-offset: 2px; }
+.modal-close {
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  padding: 9px 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .1s ease;
+}
+.modal-close:hover { opacity: .6; }
+.modal-close:active { transform: translateY(1px); }
+
 @keyframes popIn {
   from { opacity: 0; transform: scale(.96); }
   to   { opacity: 1; transform: scale(1); }
@@ -360,7 +403,16 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 }
 
 /* ---- works：树+栅栏+猫（猫会走） ---- */
-.works-doodles .tree { top: 0;   right: 0;  width: 240px; }
+/* ---- works：挂苹果的树。单独一层（不放进 .doodles），
+   因为涂鸦层是 aria-hidden + pointer-events:none，苹果在里面点不到 */
+.tree-doodles {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 240px;
+  height: 225px;
+}
+.tree-doodles .tree { display: block; width: 100%; }
 .works-doodles .cat  {
   bottom: 30px; right: 90px; width: 90px;
   animation: catWalk 6s ease-in-out infinite;
@@ -375,6 +427,57 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   50%      { transform: translateX(20px) translateY(-2px); }
 }
 
+/* ---- works：停更项目的苹果（挂在右上角的树上，一个项目一个） ----
+   素材是「黑描边 + 不透明白果身 + 外部透明」，所以果身能整块上色。
+   默认叠一张白色 .apple-ink（不填色），hover 时淡入该项目的
+   主题色苹果图（works-apple-<项目>.png，白果身乘主题色得到的），
+   于是变色的是一整个果身，而不是只有描边。
+   .tree-apples 锚在树上（.tree-doodles 是定位上下文），
+   所以苹果跟着树一起缩放、一起挪到窄屏。 */
+.tree-apples {
+  position: absolute;
+  inset: 0;
+  font-size: 0;                  /* 消掉 button 行内间隙 */
+  pointer-events: none;          /* 只让苹果本身可点 */
+}
+.apple {
+  position: absolute;
+  display: block;
+  width: 10%;                    /* 跟着树缩放：桌面 24px，窄屏约 20px */
+  aspect-ratio: 130 / 153;       /* 和苹果素材同比例，免得拉伸 */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+/* 长在树叶区域内（量过树冠轮廓）：整个苹果都在树冠里、不压到轮廓线，
+   离轮廓留约 4px。用百分比定位，树在窄屏变小时苹果自动等比跟着走。
+   两个等高于 top=8.59%，以树冠中心左右镜像。
+   注：树冠内部还有 6 处很小的「叶子」笔画（60–88px），
+   它们不是树冠外轮廓，算间距时要排除，否则会被误判成压线。 */
+.apple[data-retired="tomanotes"] { left: 36.67%; top: 8.59%; }
+.apple[data-retired="artista"]   { left: 53.33%; top: 8.59%; }
+.apple-fill {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;                    /* 停更了，苹果也就褪了色 */
+  transition: opacity .35s ease;
+}
+.apple-ink { display: block; width: 100%; }
+.apple:hover .apple-fill,
+.apple:focus-visible .apple-fill { opacity: 1; }
+.apple:focus-visible {
+  outline: 2px dashed var(--ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.apple[data-retired="artista"]   .apple-fill { background-image: url("/assets/doodles/works-apple-artista.png"); }
+.apple[data-retired="tomanotes"] .apple-fill { background-image: url("/assets/doodles/works-apple-tomanotes.png"); }
+
 /* ---- contact：两个杯子碰杯（单张 PNG，做整体轻呼吸） ---- */
 .contact-doodles .cups {
   top: 40px; right: 40px; width: 200px;
@@ -383,7 +486,7 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 }
 
 /* ============================================================
-   Works 列表（2×2 网格）
+   Works 列表（两列网格；停更项目见右下角苹果）
    ============================================================ */
 .works-grid {
   display: grid;
@@ -572,7 +675,7 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 }
 .detail-links a.detail-download:active { transform: translateY(1px); }
 
-/* notiee：app store / website 按钮（coming soon 占位，不可点） */
+/* notiee：testflight 链接按钮 + app store / website 占位按钮（后两个不可点） */
 .store-buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
 .store-btn {
   display: inline-flex;
@@ -596,6 +699,25 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 }
 .store-btn.outline .icon-globe { fill: none; stroke: currentColor; stroke-width: 1.8; }
 .store-btn .soon { font-size: .72rem; opacity: .5; }
+
+/* testflight：唯一的可点按钮，用深色压过两个占位按钮 */
+.store-btn--link {
+  background: var(--ink);
+  color: #FFFFFF;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .2s ease;
+}
+.store-btn--link svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.store-btn--link:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0, 0, 0, .22); }
+.store-btn--link:active { transform: translateY(1px); box-shadow: none; }
+.store-btn--link:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
 /* ============================================================
    Contact
@@ -745,6 +867,9 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
   .home-doodles .z:nth-of-type(2) { bottom: 115px; right: 65px; width: 24px; }
   .home-doodles .z:nth-of-type(3) { bottom: 140px; right: 42px; width: 28px; }
   .works-grid { grid-template-columns: 1fr; gap: 32px; }
+  /* 窄屏树缩到 196px，回到文档流。必须保持 relative：
+     .tree-apples 是它的绝对定位子元素，改成 static 会让苹果锚到整页去 */
+  .tree-doodles { position: relative; width: 196px; height: 184px; margin: -45px 0 0 auto; }
   .detail-title { font-size: 2.4rem; }
   .talks-item-title { font-size: 1.5rem; }
   .talks-detail-doodles .star { display: none; }   /* 窄屏不放可拖星,避免挡正文 */
