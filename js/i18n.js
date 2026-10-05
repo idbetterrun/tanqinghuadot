@@ -54,6 +54,11 @@
     "blurb.artista": "像做幻灯片一样做网页，mac 原生 app",
     "blurb.dreamland": "一个能戳一戳的文字小世界，由大模型驱动",
     "blurb.tomanotes": "一个我做出来的桌面笔记 app，没想到真有人用",
+    "blurb.nsad": "想接手一家开在异世界夹缝里的中立食堂吗？那就来试试这款第一视角、粗糙 3D 的喜剧经营游戏吧",
+    "blurb.dongdong": "一款面向儿童的运动激励 App",
+
+    /* 作品名（只有中英不同名的才进字典，其余同名的不进） */
+    "title.dongdong": "动动星球",
 
     /* 详情 notiee */
     "d.notiee.meta": "即将上架 App Store · 2026 年 5 月起",
@@ -95,6 +100,17 @@
     "d.tomanotes.download": "↓ 下载",
     "d.tomanotes.iconAlt": "tomanotes 应用图标",
     "d.tomanotes.shotAlt": "tomanotes 截图",
+
+    /* 详情 nsad（no smiting at the diner）
+       注：正文只复述了已确认的信息，具体玩法/引擎/进度等待补 */
+    "d.nsad.p1": "第一视角，3D 刻意做得很粗糙。你接手的是开在异世界夹缝里的一家中立食堂——一个喜剧味的经营游戏。",
+    "d.nsad.iconAlt": "no smiting at the diner 游戏图标",
+    "d.nsad.shotAlt": "no smiting at the diner 截图",
+
+    /* 详情 动动星球
+       注：目前只有一句话介绍，正文待补 */
+    "d.dongdong.iconAlt": "动动星球 应用图标",
+    "d.dongdong.shotAlt": "动动星球 截图",
 
     /* contact */
     "contact.title": "打个招呼",

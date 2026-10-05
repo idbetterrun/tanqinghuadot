@@ -31,6 +31,8 @@ body[data-theme="tomanotes"]  { --bg: #EAE7E1; --ink: #1A1A1A; }
 body[data-theme="notiee"]     { --bg: #09C576; --ink: #0A2A1B; }
 body[data-theme="artista"]    { --bg: #F5DFF3; --ink: #2A1A28; }
 body[data-theme="dreamland"]  { --bg: #121212; --ink: #F5F5F5; } /* 暗色，文字翻白 */
+body[data-theme="nsad"]       { --bg: #E9B44C; --ink: #3B2A05; } /* 异世界食堂：暖黄 */
+body[data-theme="dongdong"]   { --bg: #A8DAFF; --ink: #0A2D45; } /* 儿童运动：天蓝 */
 
 /* ---------- Reset-ish ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -402,6 +404,8 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   transform-origin: left center;
   transition: transform .32s cubic-bezier(.2, .75, .25, 1);
 }
+/* 长名字的作品（如 no smiting at the diner）：缩一号，避免手写体下折成三行 */
+.app-title.app-title--sm { font-size: 1.5rem; }
 .app-blurb {
   display: block;
   font-family: var(--font-body);
@@ -414,6 +418,8 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
 }
 .app-card:hover .app-blurb,
 .app-card:focus-visible .app-blurb { opacity: .8; }
+/* 长介绍（如 nsad）：放宽到整列宽，不然 22ch 会折成一长条 */
+.app-blurb.app-blurb--wide { max-width: 100%; }
 
 /* 键盘聚焦同样突出当前卡片。 */
 .works-grid:has(.app-card:focus-visible) .app-card:not(:focus-visible) {
@@ -452,6 +458,8 @@ body[data-theme="dreamland"] .doodle { filter: invert(1); }
   margin: 0 0 8px;
   line-height: 1.05;
 }
+/* 长名字的作品详情页大标题：缩到两行以内（复合选择器，压过窄屏媒体查询里的 2.4rem） */
+.detail-title.detail-title--sm { font-size: 2.2rem; line-height: 1.15; }
 .detail-tagline {
   font-size: 1.2rem;
   opacity: .8;

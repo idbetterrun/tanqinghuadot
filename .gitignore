@@ -15,3 +15,6 @@ resume/
 # vercel local env + secrets (KV tokens) — never commit
 .vercel/
 .env*.local
+
+# 工具内部数据（项目笔记 / 记忆），不进公开仓库
+.workbuddy/
