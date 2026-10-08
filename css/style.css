@@ -955,7 +955,27 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 /* ============================================================
    Talks 列表 + 筛选 chip
    ============================================================ */
-.talks-filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 36px; }
+.talks-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 36px; }
+.talks-filter-tail { display: inline-flex; align-items: center; gap: 4px; }
+.talks-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: .55;
+  transition: opacity .2s ease, background-color .2s ease;
+}
+.talks-more:hover { opacity: 1; background: rgba(0, 0, 0, .05); }
+.talks-more svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
+.talks-more[aria-expanded="true"] svg { transform: rotate(180deg); }
+.talks-extra-filters { display: flex; flex-wrap: wrap; flex-basis: 100%; gap: 10px; }
 .talks-chip {
   font-family: var(--font-hand);
   font-size: 1.15rem;
@@ -1043,6 +1063,17 @@ body[data-theme="dreamland"] .shot img { border-color: rgba(255, 255, 255, .15);
 /* ============================================================
    Talks 详情
    ============================================================ */
+.talks-ai-notice {
+  margin: 0 0 28px;
+  padding: 18px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: var(--accent);
+  color: var(--ink);
+  line-height: 1.6;
+}
+.talks-ai-notice strong { font-size: 1.05rem; }
+.talks-ai-notice p { margin: 4px 0 0; font-size: .9rem; }
 .talks-date { display: flex; align-items: center; gap: 12px; margin: 0 0 6px; }
 /* 日历:撕页本,上侧印月份简写、下侧印日期数字(JS 绑定) */
 .talks-cal {

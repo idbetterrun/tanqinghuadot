@@ -12,10 +12,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css?v=12">
+  <link rel="stylesheet" href="/css/style.css?v=19">
   <script src="/js/i18n.js?v=10" defer></script>
   <script src="/js/main.js?v=4" defer></script>
-  <script src="/js/talks.js?v=1" defer></script>
+  <script src="/js/talks.js?v=4" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
@@ -26,8 +26,17 @@
       <div class="talks-filters" role="group" aria-label="filter by product" data-i18n-attr="aria-label:talks.filterAria">
         <button type="button" class="talks-chip" data-tag="notiee">notiee</button>
         <button type="button" class="talks-chip" data-tag="dreamland">dreamland</button>
-        <button type="button" class="talks-chip" data-tag="artista">artista</button>
-        <button type="button" class="talks-chip" data-tag="tomanotes">tomanotes</button>
+        <button type="button" class="talks-chip" data-tag="nsad">nsad</button>
+        <span class="talks-filter-tail">
+          <button type="button" class="talks-chip" data-tag="ddplanet">ddplanet</button>
+          <button type="button" class="talks-more" data-talks-more aria-expanded="false" aria-controls="talks-extra-filters" aria-label="show more filters" title="show more filters">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </span>
+        <div class="talks-extra-filters" id="talks-extra-filters" hidden>
+          <button type="button" class="talks-chip" data-tag="artista">artista</button>
+          <button type="button" class="talks-chip" data-tag="tomanotes">tomanotes</button>
+        </div>
       </div>
       <ul class="talks-list" data-talks-list></ul>
     </main>

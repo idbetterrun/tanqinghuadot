@@ -6,8 +6,20 @@
 
   /* talks 专属动态文案(页面外壳走 i18n;这里只放列表/详情里 JS 生成的少量字) */
   var STR = {
-    en: { empty: "nothing here yet." },
-    zh: { empty: "这里还什么都没有。" }
+    en: {
+      empty: "nothing here yet.",
+      moreFilters: "show more filters",
+      lessFilters: "hide more filters",
+      aiLabel: "AI-generated",
+      aiNote: "A draft based on recent website changes, for the author to review."
+    },
+    zh: {
+      empty: "这里还什么都没有。",
+      moreFilters: "展开更多筛选",
+      lessFilters: "收起更多筛选",
+      aiLabel: "由 AI 生成",
+      aiNote: "根据近期网站变更整理的草稿，供作者审阅。"
+    }
   };
   function lang() { return (window.I18N && window.I18N.current) || "en"; }
   function t(k) { return (STR[lang()] || STR.en)[k]; }
@@ -70,20 +82,49 @@
     }).join("");
   }
 
+  function setFilter(tag, listEl) {
+    listState.filter = tag;
+    document.querySelectorAll(".talks-chip").forEach(function (chip) {
+      var active = chip.getAttribute("data-tag") === tag;
+      chip.classList.toggle("active", active);
+      chip.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    renderList(listEl);
+  }
+
   function bindChips(listEl) {
     document.querySelectorAll(".talks-chip").forEach(function (chip) {
+      chip.setAttribute("aria-pressed", "false");
       chip.addEventListener("click", function () {
         var tag = chip.getAttribute("data-tag");
-        listState.filter = (listState.filter === tag) ? null : tag;
-        document.querySelectorAll(".talks-chip").forEach(function (c) {
-          c.classList.toggle("active", c.getAttribute("data-tag") === listState.filter);
-        });
-        renderList(listEl);
+        setFilter(listState.filter === tag ? null : tag, listEl);
       });
     });
   }
 
+  function bindMoreFilters(listEl) {
+    var button = document.querySelector("[data-talks-more]");
+    var extra = document.getElementById("talks-extra-filters");
+    if (!button || !extra) return;
+    function updateLabel() {
+      var label = t(extra.hidden ? "moreFilters" : "lessFilters");
+      button.setAttribute("aria-label", label);
+      button.title = label;
+    }
+    updateLabel();
+    document.addEventListener("langchange", updateLabel);
+    button.addEventListener("click", function () {
+      extra.hidden = !extra.hidden;
+      button.setAttribute("aria-expanded", extra.hidden ? "false" : "true");
+      updateLabel();
+      if (extra.hidden && Array.from(extra.querySelectorAll(".talks-chip")).some(function (chip) {
+        return chip.getAttribute("data-tag") === listState.filter;
+      })) setFilter(null, listEl);
+    });
+  }
+
   function initList(listEl) {
+    bindMoreFilters(listEl);
     document.addEventListener("langchange", function () { renderList(listEl); });
     fetchPosts().then(function (posts) {
       listState.posts = posts.slice().sort(byDateDesc);
@@ -177,6 +218,12 @@
     var tEl = root.querySelector("[data-talks-title]");
     var mEl = root.querySelector("[data-talks-month]");
     var dayEl = root.querySelector("[data-talks-day]");
+    var aiNotice = root.querySelector("[data-talks-ai-notice]");
+    if (aiNotice) {
+      aiNotice.hidden = post.aiGenerated !== true;
+      aiNotice.querySelector("[data-talks-ai-label]").textContent = t("aiLabel");
+      aiNotice.querySelector("[data-talks-ai-note]").textContent = t("aiNote");
+    }
     var cd = new Date(post.date + "T00:00:00");
     if (mEl) mEl.textContent = CAL_MON[cd.getMonth()];     /* 日历上侧:月份简写 jan/feb… */
     if (dayEl) dayEl.textContent = cd.getDate();           /* 日历下侧:日期数字 */
