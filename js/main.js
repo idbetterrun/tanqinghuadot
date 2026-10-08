@@ -109,6 +109,36 @@
     });
   }
 
+  /* TestFlight 已结束：点击也能查看提示，Escape 或点外部可收起。 */
+  function bindTestflightStatus() {
+    var status = document.querySelector(".testflight-status");
+    if (!status) return;
+    var button = status.querySelector("button");
+    function show() { status.classList.remove("is-dismissed"); }
+    function dismiss() {
+      status.classList.remove("is-open");
+      status.classList.add("is-dismissed");
+    }
+    status.addEventListener("mouseenter", show);
+    button.addEventListener("focus", show);
+    button.addEventListener("click", function () {
+      show();
+      status.classList.add("is-open");
+    });
+    status.addEventListener("mouseleave", function () {
+      status.classList.remove("is-open");
+    });
+    status.addEventListener("focusout", function (event) {
+      if (!status.contains(event.relatedTarget)) dismiss();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") dismiss();
+    });
+    document.addEventListener("click", function (event) {
+      if (!status.contains(event.target)) dismiss();
+    });
+  }
+
   /* 截图全部加载失败时，彻底隐藏空画廊（onerror 已删除 .shot，这里收尾去掉残留间距） */
   function hideEmptyShots() {
     document.querySelectorAll(".shots").forEach(function (group) {
@@ -345,6 +375,7 @@
     bindWorksHover();
     bindDegreeEasterEgg();
     bindRetiredApples();
+    bindTestflightStatus();
     addFooter();
     setupCatDrag();
     setupNoteBubble();
