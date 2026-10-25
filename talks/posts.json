@@ -1,5 +1,19 @@
 [
   {
+    "slug": "2026-10-26-notiee-1-0-9-changelog",
+    "date": "2026-10-26",
+    "aiGenerated": true,
+    "tags": ["notiee"],
+    "title": {
+      "zh": "notiee 1.0.9 更新日志：把整个 App 重做了一遍",
+      "en": "the notiee 1.0.9 changelog: i rebuilt almost the whole app"
+    },
+    "summary": {
+      "zh": "四个 tab 变两个地方，相机、录音、编辑器全部重写，Notti 有了记忆和来源，免费版也有了账号和统一 AI 额度。",
+      "en": "four tabs became two places, the camera, recording and editor were all rebuilt, Notti gained memory and sources, and the free app now has accounts and one AI allowance."
+    }
+  },
+  {
     "slug": "2026-10-08-little-worlds-and-two-apples",
     "date": "2026-10-08",
     "aiGenerated": true,
