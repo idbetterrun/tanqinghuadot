@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css?v=14">
-  <script src="/js/i18n.js?v=12" defer></script>
-  <script src="/js/main.js?v=5" defer></script>
+  <script src="/js/i18n.js?v=14" defer></script>
+  <script src="/js/main.js?v=6" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body data-theme="notiee">
@@ -29,29 +29,28 @@
         <h1 class="detail-title">notiee</h1>
       </div>
       <p class="detail-tagline" data-i18n="blurb.notiee">an ios notes app that turns photos, voice notes and text into a knowledge base you can search and ask</p>
-      <p class="detail-meta" data-i18n="d.notiee.meta">coming soon to App Store · this TestFlight round has ended · iOS 18.0+</p>
+      <p class="detail-meta" data-i18n="d.notiee.meta">coming soon to App Store · TestFlight 1.0.9 public beta is open · iOS 18.0+</p>
 
       <div class="detail-body">
-        <p data-i18n="d.notiee.p1">photos get read into a title, summary, key points and keywords, with any todos pulled out. voice notes transcribe live on the phone — pause and resume, play back at speed, tap a line to jump to that moment. markdown just saves.</p>
-        <p data-i18n="d.notiee.p2">the ai handles ocr, summaries, the longer write-up, key points, term definitions and todo extraction. todos and events it finds go straight into your task list and calendar — system events, notiee events, ai-scheduled blocks and imported timetables share one timeline, with reminders and a live countdown on the lock screen and in the dynamic island. full-text or semantic search finds something even when you only remember the gist.</p>
-        <p data-i18n="d.notiee.p3">notti is the ai companion living in your library: eighteen skills, from finding notes and tidying key points to creating todos, editing records, checking your schedule and searching the web. deletions ask you first, every step can be undone, and the memory it keeps of your preferences and long-term goals stays on the device.</p>
-        <p data-i18n="d.notiee.p4">your data stays on your iphone by default — a note can be encrypted (encrypted content stays out of search and sync), the app locks with a passcode or face id, and a note exports as .tmn with its text and images or the whole library backs up to icloud drive by hand. the free version gives you 30 notes a month on cloud models, 300 with a subscription, then falls back to on-device ocr; notiee+ is a one-time purchase with your own endpoint and key and no monthly ceiling. simplified chinese, traditional chinese and english.</p>
+        <p data-i18n="d.notiee.p1">two destinations now, Today and Records. pull down on Today to shoot, pull up to record, and notes, todos and events all land in the same library. a note is a title plus one free markdown body — the formatting toolbar is always there, it autosaves 600ms after you stop typing, and AI organization never overwrites what you wrote by hand. a record can carry several attachments.</p>
+        <p data-i18n="d.notiee.p2">the camera got rebuilt: 4:3 framing, zoom presets generated from the lenses your device actually has, real tap-to-focus, live photos, bursts up to 9 and draft recovery. recording starts from the pull-up on Today and transcribes live on device — pause and resume, a 30-minute limit, speed playback, tap a transcript line to jump to that moment. everything you capture goes through one model call that produces title, summary, body and todos, in the background while you do something else; a screenshot shortcut can drop captures in without opening the app.</p>
+        <p data-i18n="d.notiee.p3">Notti is the AI companion living in your library. answers cite your notes and web pages with tappable sources; it keeps a local, encrypted memory of your preferences and long-term goals, never synced to iCloud; and Notti emergence surfaces connections between notes you might have forgotten. ask it for a markdown document and it becomes a card you can preview, share or add to a record. the free app runs all AI through notiee's backend, so there's no key to fill in; notiee+ is a one-time purchase that talks straight to your own model provider.</p>
+        <p data-i18n="d.notiee.p4">on the free app, sign in with an email code or Apple, and one shared AI allowance covers every feature — no more counting captures per month. the tiers are Leaf and Folio; Folio is currently closed to new subscriptions, while existing subscriptions, restores and entitlement delivery keep working. notiee+ stays a one-time purchase with your own key. your data lives on your iPhone: encrypted notes stay out of search and sync, the app locks with a passcode or Face ID, a note exports as .tmn, and the whole library can back up to iCloud Drive by hand. simplified chinese, traditional chinese and english.</p>
       </div>
 
       <div class="shots">
-        <figure class="shot"><img src="/assets/works/notiee/01.webp" alt="notiee screenshot" data-i18n-attr="alt:d.notiee.shotAlt" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
-        <figure class="shot"><img src="/assets/works/notiee/02.webp" alt="notiee screenshot" data-i18n-attr="alt:d.notiee.shotAlt" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
-        <figure class="shot"><img src="/assets/works/notiee/03.webp" alt="notiee screenshot" data-i18n-attr="alt:d.notiee.shotAlt" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
+        <figure class="shot"><img src="/assets/works/notiee/01-today.webp" alt="today screen with a live event and the latest records" data-i18n-attr="alt:d.notiee.shotAlt1" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
+        <figure class="shot"><img src="/assets/works/notiee/02-records.webp" alt="the two-column record library" data-i18n-attr="alt:d.notiee.shotAlt2" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
+        <figure class="shot"><img src="/assets/works/notiee/03-recording.webp" alt="live transcription while recording, with speaker turns and a notti flash card" data-i18n-attr="alt:d.notiee.shotAlt3" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
+        <figure class="shot"><img src="/assets/works/notiee/04-notti-questions.webp" alt="notti starter questions in an empty conversation" data-i18n-attr="alt:d.notiee.shotAlt4" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
+        <figure class="shot"><img src="/assets/works/notiee/05-notti-answer.webp" alt="notti answering after a web search, with an execution summary" data-i18n-attr="alt:d.notiee.shotAlt5" loading="lazy" onerror="this.closest('.shot').remove()"></figure>
       </div>
 
       <div class="store-buttons">
-        <div class="testflight-status">
-          <button type="button" class="store-btn store-btn--link store-btn--floating" aria-disabled="true" aria-describedby="testflight-notice" aria-label="TestFlight beta — this round has ended" data-i18n-attr="aria-label:d.notiee.tfAria">
-            <svg class="icon-flask" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6.3L5.6 17.5A2.7 2.7 0 0 0 8 21.3h8a2.7 2.7 0 0 0 2.4-3.8L14 9.3V3"/><path d="M6.7 15.4h10.6"/></svg>
-            <span data-i18n="d.notiee.tf">testflight beta</span>
-          </button>
-          <span id="testflight-notice" class="testflight-notice" role="tooltip" data-i18n="d.notiee.tfNotice">this beta round has ended. please wait for the next one.</span>
-        </div>
+        <a class="store-btn store-btn--link" href="https://testflight.apple.com/join/VXBdKhvn" target="_blank" rel="noopener noreferrer" aria-label="join the TestFlight 1.0.9 public beta" data-i18n-attr="aria-label:d.notiee.tfAria">
+          <svg class="icon-flask" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v6.3L5.6 17.5A2.7 2.7 0 0 0 8 21.3h8a2.7 2.7 0 0 0 2.4-3.8L14 9.3V3"/><path d="M6.7 15.4h10.6"/></svg>
+          <span data-i18n="d.notiee.tf">join the TestFlight beta</span>
+        </a>
         <span class="store-btn filled" role="note" aria-label="coming soon to App Store" data-i18n-attr="aria-label:d.notiee.storeAria">
           <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
           <span data-i18n="d.notiee.store">coming soon to app store</span>
